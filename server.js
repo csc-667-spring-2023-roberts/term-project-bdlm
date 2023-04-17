@@ -5,7 +5,11 @@ const morgan = require("morgan");
 
 const express = require("express");
 const app = express();
+//const testRoutes = require("./routes/test/index.js");
 
+require("dotenv").config();
+
+//app.use("/test", testRoutes);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
