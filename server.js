@@ -1,76 +1,47 @@
-const express = require("express");
-const createHttpError = require("http-errors");
 const path = require("path");
-const session = require("express-session");
-const pgSession = require("connect-pg-simple")(session);
-const addSessionLocals = require("./middleware/add-session-locals.js");
-const isAuthenticated = require("./middleware/is-authenticated.js");
-const initSockets = require("./sockets/initialize.js");
-
-const morgan = require("morgan");
+const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
 
 require("dotenv").config();
-const db = require("./db/connection.js");
 
-const homeRoutes = require("./routes/static/home.js");
-const gamesRoutes = require("./routes/static/games.js");
-const lobbyRoutes = require("./routes/static/lobby.js");
-const authenticationRoutes = require("./routes/static/authentication.js");
-const testRoutes = require("./routes/static/test.js");
-const chatRoutes = require("./routes/static/chat.js");
-
+const express = require("express");
 const app = express();
+const testRoutes = require("./backend/routes/test/index.js");
+
+
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// if (process.env.NODE_ENV === "development") {
+//     const livereload = require("livereload");
+//     const connectLiveReload = require("connect-livereload");
 
-if (process.env.NODE_ENV === "development") {
-  const livereload = require("livereload");
-  const connectLiveReload = require("connect-livereload");
+//     const liveReloadServer = livereload.createServer();
+//     liveReloadServer.watch(path.join(__dirname, "backend", "static"));
+//     liveReloadServer.server.once("connection", () => {
+//         setTimeout(() => {
+//             liveReloadServer.refresh("/");
+//         }, 100);
+//     });
 
-  const liveReloadServer = livereload.createServer();
-  liveReloadServer.watch(path.join(__dirname, "static"));
-  liveReloadServer.server.once("connection", () => {
-    setTimeout(() => {
-      liveReloadServer.refresh("/");
-    }, 100);
-  });
+//     app.use(connectLiveReload());
+// }
+app.set("views", path.join(__dirname, "backend", "views"));
+app.set("view engine", "pug");
+app.use(express.static(path.join(__dirname, "backend", "static")));
 
-  app.use(connectLiveReload());
-}
+const rootRoutes = require("./backend/routes/root");
 
-const sessionMiddleware = session({
-  store: new pgSession({ pgPromise: db }),
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 },
-});
-
-app.use(sessionMiddleware);
-const server = initSockets(app, sessionMiddleware);
-
-const PORT = process.env.PORT || 3000;
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
-app.use(express.static(path.join(__dirname, "static")));
-app.use(addSessionLocals);
-
-app.use("/", homeRoutes);
-app.use("/games", isAuthenticated, gamesRoutes);
-app.use("/lobby", isAuthenticated, lobbyRoutes);
-app.use("/authentication", authenticationRoutes);
+app.use("/", rootRoutes);
 app.use("/test", testRoutes);
-app.use("/chat", chatRoutes);
-
-server.listen(PORT, () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
 
-app.use((_request, _response, next) => {
-  next(createHttpError(404));
+app.use((request, response, next) => {
+  next(createError(404));
 });
