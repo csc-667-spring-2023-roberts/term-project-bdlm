@@ -13,6 +13,9 @@ router.get("/", (_request, response) => {
       year: "numeric",
     })}`,
   ])
+  //new way
+//results = await db.any(`SELECT * FROM test_table`);
+//response.json(results);
     .then((_) => db.any(`SELECT * FROM test_table`))
     .then((results) => response.json(results))
     .catch((error) => {
@@ -20,5 +23,6 @@ router.get("/", (_request, response) => {
       response.json({ error });
     });
 });
+
 
 module.exports = router;
