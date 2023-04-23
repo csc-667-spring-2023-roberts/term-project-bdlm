@@ -2,12 +2,18 @@ const path = require("path");
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
+const homeRoutes = require("./routes/static/home.js");
+const authenticationRoutes = require("./routes/static/authentication.js");
+const gameroomRoutes = require("./routes/static/gameroom.js");
+const tableRoutes = require("./routes/static/table.js");
+const tableroomRoutes = require("./routes/static/tableroom.js");
+const userhomeRoutes = require("./routes/static/userhome.js");
 
 require("dotenv").config();
 
 const express = require("express");
 const app = express();
-const testRoutes = require("./backend/routes/test/index.js");
+const testRoutes = require("./routes/test/index.js");
 
 
 
@@ -33,10 +39,18 @@ app.set("views", path.join(__dirname, "backend", "views"));
 app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "backend", "static")));
 
-const rootRoutes = require("./backend/routes/root");
+const rootRoutes = require("./routes/root");
 
-app.use("/", rootRoutes);
-app.use("/test", testRoutes);
+//app.use("/", rootRoutes);
+app.use("/", homeRoutes);
+app.use("/authentication", authenticationRoutes);
+app.use("/gameroom", gameroomRoutes);
+app.use("/tableroom", tableroomRoutes);
+app.use("/table", tableRoutes);
+app.use("/userhome", userhomeRoutes);
+//app.use("/test", testRoutes);
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
