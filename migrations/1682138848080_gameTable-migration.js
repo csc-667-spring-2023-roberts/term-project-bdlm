@@ -10,32 +10,17 @@ exports.up = pgm => {
         roomId: {
             type: "id",
             notNull: true,
-            references: {
-                model:{
-                    tableName: "gameRoom"
-                },
-                key: "id"
-            }
+            
         },
         playersId: {
             type: "id",
             notNull: true,
-            references: {
-                model: {
-                    tableName: "players"
-                },
-                key: "id"
-            }
+            
         },
         current: {
             type: "boolean",
             notNull: true,
-            references: {
-                model: {
-                    tableName: "players"
-                },
-                key: "current"
-            }
+            
         },
         capacity: {
             type: "integer",

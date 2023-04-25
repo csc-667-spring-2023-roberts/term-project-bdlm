@@ -9,24 +9,14 @@ exports.up = pgm => {
     pgm.createTable("players", {
         id: "id",
         userId: {
-            type: "id",
+            type: "integer",
             notNull: true,
-            references: {
-                model: {
-                    tableName:'user'
-                },
-                key: "id",
-            }
+            
         }, 
         roomId: {
-            type: "id",
+            type: "integer",
             notNull: true,
-            references:{
-                model: {
-                    tableName: "gameRoom"
-                },
-                key: "id"
-            }
+          
         },
         current: {
             type: "boolean",

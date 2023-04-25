@@ -10,32 +10,17 @@ exports.up = pgm => {
         tableId: {
             type: "id",
             notNull: true,
-            references: {
-                model: {
-                    tableName: "gameTable"
-                },
-                key: "id"
-            }
+            
         },
         cardId: {
             type: "id",
             notNull: true,
-            references: {
-                model: {
-                    tableName: "card"
-                },
-                key: "id"
-            }
+            
         },
         playersId: {
             type: "id",
             notNull: true,
-            references: {
-                model: {
-                    tableName: "players"
-                },
-                key: "id"
-            }
+            
         },
         cardOrder: {
             type: "integer",
