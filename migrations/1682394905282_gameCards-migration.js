@@ -8,33 +8,27 @@ exports.up = pgm => {
     pgm.createTable("gameCards", {
         id: "id",
         tableId: {
-            type: "id",
+            type: "integer",
             notNull: true,
-            references: {
-                model: {
-                    tableName: "gameTable"
-                },
-                key: "id"
+            foreignKeys: {
+                columns: "id",
+                references: "gameTable"
             }
         },
         cardId: {
-            type: "id",
+            type: "integer",
             notNull: true,
-            references: {
-                model: {
-                    tableName: "card"
-                },
-                key: "id"
+            foreignKeys: {
+                columns: "id",
+                references: "cards"
             }
         },
         playersId: {
-            type: "id",
+            type: "integer",
             notNull: true,
-            references: {
-                model: {
-                    tableName: "players"
-                },
-                key: "id"
+            foreignKeys: {
+                columns: "id",
+                references: "players"
             }
         },
         cardOrder: {
