@@ -10,26 +10,14 @@ exports.up = pgm => {
         roomId: {
             type: "integer",
             notNull: true,
-            foreignKeys: {
-                columns: "id",
-                references: "gameRoom"
-            }
+            references: "gameRoom",
+            foreignKeys: "id"
         },
         playerId: {
             type: "integer",
             notNull: true,
-            foreignKeys: {
-                columns: "id",
-                references: "players"
-            }
-        },
-        currentPlayer: {
-            type: "boolean",
-            notNull: true,
-            foreignKeys:{
-                columns: "current",
-                references:"players"
-            }
+            references: "players",
+            foreignKeys: "id"
         },
         capacity: {
             type: "integer",
@@ -40,27 +28,7 @@ exports.up = pgm => {
             notNull: true,
         }
     }
-    // {
-    //     roomId: {
-    //         foreignKeys: {
-    //             columns: "id",
-    //             references: "gameRoom"
-    //         }
-    //     },
-    //     playersId: {
-    //         foreignKeys: {
-    //             columns: "id",
-    //             references: "players"
-    //         }
-    //     },
-    //     currentPlayer: {
-    //         foreignKeys: {
-    //             columns: "current",
-    //             references: "players"
-    //         }
-    //     },
-    // });
-    )};
+)};
   /**
    * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
    */

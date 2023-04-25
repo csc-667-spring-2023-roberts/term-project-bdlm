@@ -10,26 +10,20 @@ exports.up = pgm => {
         tableId: {
             type: "integer",
             notNull: true,
-            foreignKeys: {
-                columns: "id",
-                references: "gameTable"
-            }
+            references: "gameTable",
+            foreignKeys: "id"
         },
         cardId: {
             type: "integer",
             notNull: true,
-            foreignKeys: {
-                columns: "id",
-                references: "cards"
-            }
+            references: "cards",
+            foreignKeys: "id"
         },
         playersId: {
             type: "integer",
             notNull: true,
-            foreignKeys: {
-                columns: "id",
-                references: "players"
-            }
+            references: "players",
+            foreignKeys: "id"
         },
         cardOrder: {
             type: "integer",

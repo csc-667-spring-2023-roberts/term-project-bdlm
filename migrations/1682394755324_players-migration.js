@@ -10,18 +10,15 @@ exports.up = pgm => {
         userId: {
             type: "integer",
             notNull: true,
-            foreignKeys: {
-                columns: "id",
-                references: "user"
-            }
+            references: "user",
+            foreignKeys: "id"
+
         }, 
         roomId: {
             type: "integer",
             notNull: true,
-            foreignKeys: {
-                columns: "id",
-                references: "gameRoom"
-            }
+            references: "gameRoom",
+            foreignKeys: "id"
         },
         current: {
             type: "boolean",
