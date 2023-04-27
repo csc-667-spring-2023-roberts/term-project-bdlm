@@ -21,7 +21,7 @@ const tableroomRoutes = require("./routes/static/tableroom.js");
 const userhomeRoutes = require("./routes/static/userhome.js");
 const testRoutes = require("./routes/test/index.js");
 const chatRoutes = require("./routes/static/chat.js");
-
+const apiGamesRoutes = require("./routes/api/games.js");
 const app = express();
 
 app.use(morgan("dev"));
@@ -71,6 +71,8 @@ app.use("/table", tableRoutes);
 app.use("/userhome", userhomeRoutes);
 app.use("/test", testRoutes);
 app.use("/chat", chatRoutes);
+app.use("/api/games", isAuthenticated, apiGamesRoutes);
+
 
 
 app.listen(PORT, () => {
