@@ -43,5 +43,5 @@ exports.up = pgm => {
    * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
    */
 exports.down = pgm => {
-    pgm.dropTable("users");
+    pgm.dropTable("user");
 };
