@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === "development") {
     const connectLiveReload = require("connect-livereload");
 
     const liveReloadServer = livereload.createServer();
-    liveReloadServer.watch(path.join(__dirname, "backend", "static"));
+    liveReloadServer.watch(path.join(__dirname,  "static"));
     liveReloadServer.server.once("connection", () => {
         setTimeout(() => {
             liveReloadServer.refresh("/");
@@ -65,13 +65,13 @@ app.use(addSessionLocals);
 
 app.use("/", homeRoutes);
 app.use("/authentication", authenticationRoutes);
-app.use("/gameroom",isAuthenticated, gameroomRoutes);
+app.use("/gameroom", gameroomRoutes);
 app.use("/tableroom", tableroomRoutes);
 app.use("/table", tableRoutes);
 app.use("/userhome", userhomeRoutes);
 app.use("/test", testRoutes);
 app.use("/chat", chatRoutes);
-app.use("/api/games", isAuthenticated, apiGamesRoutes);
+app.use("/api/games", apiGamesRoutes);
 
 
 
