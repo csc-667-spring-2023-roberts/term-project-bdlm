@@ -5,6 +5,7 @@ const db = require("./connection");
 2. Create Game Table 
 3. Add players -> player joins a table to play
 4. Update table -> for updating the playerCount
+5. 
 ----- IN PROGRESS -----
 */
 
@@ -24,6 +25,7 @@ const updateTable = (playerCount, tableId) => db.none(
   "UPDATE gameTable SET playerCount=$1 WHERE tableId=$2",
   [playerCount, tableId]
 );
+
 module.exports = {
   createRoom,
   createGameTable,
