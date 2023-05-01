@@ -14,10 +14,10 @@ exports.up = pgm => {
             foreignKeys: "id"
 
         }, 
-        roomId: {
+        tableId: {
             type: "integer",
             notNull: true,
-            references: "gameRoom",
+            references: "gameTable",
             foreignKeys: "id"
         },
         current: {

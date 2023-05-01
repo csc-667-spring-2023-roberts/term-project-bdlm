@@ -1,7 +1,7 @@
 const db = require("./connection");
-const create = (username, email, password) => db.one(
-    "INSERT INTO user (username, email, password) VALUES ($1, $2, $3) RETURNING id",
-    [username, email, password]
+const create = (username, email, password, firstName, lastName) => db.one(
+    "INSERT INTO user (username, email, password, firstName, lastName) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+    [username, email, password, firstName, lastName]
 );
 const findByUsername = (username) => db.one(
     "SELECT * FROM user WHERE username=$1",
