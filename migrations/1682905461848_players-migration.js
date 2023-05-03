@@ -6,7 +6,7 @@ exports.shorthands = undefined;
  */
 exports.up = pgm => {
     pgm.createTable("players", {
-        id: "id",
+        // id: "id",
         userId: {
             type: "integer",
             notNull: true,
@@ -14,14 +14,19 @@ exports.up = pgm => {
             foreignKeys: "id"
 
         }, 
-        roomId: {
+        tableId: {
             type: "integer",
             notNull: true,
-            references: "gameRoom",
+            references: "gameTable",
             foreignKeys: "id"
         },
         current: {
             type: "boolean",
+            notNull: true,
+            default: false
+        },
+        tableOrder: {
+            type:"integer",
             notNull: true
         },
         bet: {

@@ -2,8 +2,16 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", (_request, response) => {
-  response.render("home", { title: "BDLM HOME PAGE" });
+router.get("/", (req, res) => {
+  res.render("home", { title: "BDLM HOME PAGE" });
+});
+
+router.get("/login", (req, res, next) => {
+  res.render("login");
+});
+
+router.get("/sign-up", (req, res, next) => {
+  res.render("sign-up");
 });
 
 module.exports = router;

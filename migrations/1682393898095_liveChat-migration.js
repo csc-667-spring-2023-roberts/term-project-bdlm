@@ -13,8 +13,14 @@ exports.up = pgm => {
             references: "user",
             foreignKeys: "id"
         },
-        messages: {
-            type: "varchar(256)"
+        message: {
+            type: "varchar(256)",
+            notNull: true
+        },
+        created_at: {
+            type: "timestamp",
+            notNull: true, 
+            default: pgm.func("current_timestamp"),
         }
     });
 };
