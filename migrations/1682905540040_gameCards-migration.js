@@ -19,10 +19,10 @@ exports.up = pgm => {
             references: "cards",
             foreignKeys: "id"
         },
-        playersId: {
+        userId: {
             type: "integer",
             notNull: true,
-            references: "players",
+            references: "user",
             foreignKeys: "id"
         },
         cardOrder: {
