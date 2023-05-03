@@ -12,8 +12,7 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const db = require("./db/connection.js");
 
-
-const homeRoutes = require("./routes/static/home.js");
+const homeRoutes = require("./routes/static/index.js");
 const authenticationRoutes = require("./routes/static/authentication.js");
 const gameroomRoutes = require("./routes/static/gameroom.js");
 const tableRoutes = require("./routes/static/table.js");
@@ -30,18 +29,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 if (process.env.NODE_ENV === "development") {
-    const livereload = require("livereload");
-    const connectLiveReload = require("connect-livereload");
+  const livereload = require("livereload");
+  const connectLiveReload = require("connect-livereload");
 
-    const liveReloadServer = livereload.createServer();
-    liveReloadServer.watch(path.join(__dirname, "backend", "static"));
-    liveReloadServer.server.once("connection", () => {
-        setTimeout(() => {
-            liveReloadServer.refresh("/");
-        }, 100);
-    });
+  const liveReloadServer = livereload.createServer();
+  liveReloadServer.watch(path.join(__dirname, "backend", "static"));
+  liveReloadServer.server.once("connection", () => {
+    setTimeout(() => {
+      liveReloadServer.refresh("/");
+    }, 100);
+  });
 
-    app.use(connectLiveReload());
+  app.use(connectLiveReload());
 }
 
 const sessionMiddleware = session({
@@ -65,7 +64,7 @@ app.use(addSessionLocals);
 
 app.use("/", homeRoutes);
 app.use("/authentication", authenticationRoutes);
-app.use("/gameroom",isAuthenticated, gameroomRoutes);
+app.use("/gameroom", isAuthenticated, gameroomRoutes);
 // app.use("/tableroom", tableroomRoutes);
 app.use("/table", tableRoutes);
 // app.use("/userhome", userhomeRoutes);
@@ -73,9 +72,7 @@ app.use("/test", testRoutes);
 app.use("/chat", chatRoutes);
 app.use("/api/games", isAuthenticated, apiGamesRoutes);
 
-
-
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
 
