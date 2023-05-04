@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const events = require("../../sockets/constants.js");
 const chat = require("../../db/chat.js");
+const { isAuthenticated } = require("../../middleware/is-authenticated.js");
 
 router.post("/:id", async (request, response) => {
   const io = request.app.get("io");

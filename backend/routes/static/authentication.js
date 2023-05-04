@@ -1,6 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const Users = require("../../db/users.js");
+const {
+  redirectIfAuthenticated,
+} = require("../../middleware/redirect-if-authenticated.js");
 
 const router = express.Router();
 
@@ -60,7 +63,7 @@ router.post("/login", async (request, response) => {
   } catch (error) {
     console.log({ error });
 
-    response.render("login", { title: "Jrob's Term Project", email });
+    response.render("login", { title: "BDLM Term Project", email });
   }
 });
 
