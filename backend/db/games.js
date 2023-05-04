@@ -1,80 +1,58 @@
-const db = require("./connection.js");
+const db = require("./connection");
 
-const CREATE_GAME_SQL =
-  "INSERT INTO games (completed) VALUES (false) RETURNING *";
-const INSERT_FIRST_USER_SQL =
-  "INSERT INTO game_users (user_id, game_id, current_player) VALUES ($1, $2, true)";
+/* ---Denean's logic for this particular file---
+1. Create Room -> referring the rooms that contain several tables to join, based on the betting range
+2. Create Game Table 
+3. List available game tables
+4. Add players -> player joins a table to play
+5. Update table -> for updating the playerCount
+6. Create player cards
+7. Draw cards from pile (???) 
+8. Update player cards -> as a result of drawing a card
+9. 
+----- IN PROGRESS -----
+*/
 
-const create = async (creator_id) => {
-  const { id } = await db.one(CREATE_GAME_SQL);
+const createRoom = (matchType) => db.one(
+  "INSERT INTO gameRoom (matchType) VALUES ($1)", 
+  [matchType]
+);
+const createGameTable = (roomId, playerCount) => db.one(
+  "INSERT INTO gameTable (roomId, playerCount) VALUES ($1, $2)", 
+  [roomId, playerCount]
+);
+const getTableList = async (userId) => db.any(
+  "SELECT t.id FROM gameTable t, players p WHERE t.id = p.tableId AND p.id != $1 AND (SELECT COUNT(*) FROM players p WHERE p.tableId=t.id) < 4",
+  [userId]
+);
+const joinTable = async(tableId, userId) => { 
+  const { playercount } = await db.one("SELECT playerCount FROM gameTable tWHERE t.id=$1", [tableId]);
 
-  await db.none(INSERT_FIRST_USER_SQL, [creator_id, id]);
-
-  const board = [];
-  for (let row = 0; row < 3; row++) {
-    for (let column = 0; column < 3; column++) {
-      board.push(
-        `INSERT INTO game_moves (game_id, user_id, x_coordinate, y_coordinate) VALUES ($1, 0, ${row}, ${column})`
-      );
-    }
-  }
-
-  await Promise.all(board.map((query) => db.none(query, [id])));
-
-  return { id };
+  await db.none("INSERT INTO players (tableId, userId)", [tableId, userId]);
 };
-
-const GAMES_LIST_SQL = `
-  SELECT g.id, g.created_at FROM games g, game_users gu 
-  WHERE g.id=gu.game_id AND gu.user_id != $1 AND 
-  (SELECT COUNT(*) FROM game_users WHERE game_users.game_id=g.id) = 1
-`;
-
-const list = async (user_id) => db.any(GAMES_LIST_SQL, [user_id]);
-
-const JOIN_GAME_SQL =
-  "INSERT INTO game_users (game_id, user_id) VALUES ($1, $2)";
-
-const join = (game_id, user_id) => db.none(JOIN_GAME_SQL, [game_id, user_id]);
-
-const state = async (game_id, user_id) => {
-  const users = await db.many(
-    "SELECT users.username, users.id AS user_id FROM users, game_users WHERE users.id=game_users.user_id AND game_users.game_id=$1 ORDER BY game_users.created_at",
-    [game_id]
-  );
-  users[0].letter = "X";
-  users[1].letter = "Y";
-
-  const board = await db.many(
-    "SELECT user_id, x_coordinate, y_coordinate FROM game_moves WHERE game_id=$1",
-    [game_id]
-  );
-
-  return {
-    game_id,
-    users,
-    user_id,
-    board,
-  };
+const updateTable = (playerCount, tableId) => db.none(
+  "UPDATE gameTable SET playerCount=$1 WHERE tableId=$2",
+  [playerCount, tableId]
+);
+const createPlayerCards = (cardId, userId, cardOrder) => db.one(
+  "INSERT INTO gameCards (cardId, playerId, cardOrder) VALUES ($1, $2, $3)",
+  [cardId, userId, cardOrder]
+);
+const updatePlayerCards = (cardId, cardOrder, userId) => db.none(
+  "UPDATE gameCards SET cardId=$1 AND cardOrder=$2 WHERE playerId=$3",
+  [cardId, cardOrder, userId]
+);
+const getPlayersList = (tableId) => db.any (
+  "SELECT id, username FROM user u, players p WHERE p.tableId=$1 AND p.userId=u.id",
+  [tableId]
+);
+module.exports = {
+  createRoom,
+  createGameTable,
+  getTableList,
+  joinTable,
+  updateTable,
+  createPlayerCards,
+  updatePlayerCards,
+  getPlayersList,
 };
-
-const isMoveValid = async (game_id, user_id, x, y) => {
-  await db.one(
-    "SELECT * FROM game_users WHERE game_users.game_id=$1 AND game_users.user_id=$2 AND current_player=true",
-    [game_id, user_id]
-  );
-
-  await db.one(
-    "SELECT * FROM game_moves WHERE game_moves.game_id=$1 AND game_moves.user_id=0 AND x_coordinate=$2 AND y_coordinate=$3",
-    [game_id, x, y]
-  );
-
-  await db.none(
-    "UPDATE game_moves SET user_id=$1 WHERE game_id=$2 AND x_coordinate=$3 AND y_coordinate=$4",
-    [user_id, game_id, x, y]
-  );
-
-  return await state(game_id, user_id);
-};
-
-module.exports = { create, list, join, state, isMoveValid };

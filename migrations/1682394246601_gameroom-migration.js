@@ -6,7 +6,11 @@ exports.shorthands = undefined;
  */
 exports.up = pgm => {
     pgm.createTable("gameRoom", {
-        id:"id"
+        id:"id",
+        matchType: {
+            type: "varchar(256)",
+            notNull: true
+        }
     });
 };
   /**

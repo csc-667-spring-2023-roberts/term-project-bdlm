@@ -13,18 +13,14 @@ exports.up = pgm => {
             references: "gameRoom",
             foreignKeys: "id"
         },
-        playerId: {
+        // playerId: {
+        //     type: "integer",
+        //     notNull: true,
+        //     references: "players",
+        //     foreignKeys: "id"
+        // },
+        playerCount: {
             type: "integer",
-            notNull: true,
-            references: "players",
-            foreignKeys: "id"
-        },
-        capacity: {
-            type: "integer",
-            notNull: true,
-        },
-        matchType: {
-            type: "varchar(256)",
             notNull: true,
         }
     }
