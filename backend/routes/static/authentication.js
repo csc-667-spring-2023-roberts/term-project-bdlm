@@ -1,4 +1,3 @@
-
 const express = require("express");
 const bcrypt = require("bcrypt");
 const Users = require("../../db/users.js");
@@ -6,7 +5,6 @@ const Users = require("../../db/users.js");
 const router = express.Router();
 
 const SALT_ROUNDS = 10;
-
 
 router.get("/sign-up", (_request, response) => {
   response.render("sign-up", { title: "SIGN UP PAGE" });
@@ -29,8 +27,8 @@ router.post("/register", async (request, response) => {
     response.redirect("/lobby");
   } catch (error) {
     console.log({ error });
-    response.render("register", {
-      title: "Jrob's Term Project",
+    response.render("sign-up", {
+      title: "BDLM Term Project",
       username,
       email,
     });

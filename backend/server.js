@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const db = require("./db/connection.js");
 
-const homeRoutes = require("./routes/static/index.js");
+const homeRoutes = require("./routes/static/home.js");
 const authenticationRoutes = require("./routes/static/authentication.js");
 const gameroomRoutes = require("./routes/static/gameroom.js");
 const tableRoutes = require("./routes/static/table.js");
