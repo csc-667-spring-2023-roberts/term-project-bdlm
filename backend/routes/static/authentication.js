@@ -13,15 +13,17 @@ router.get("/sign-up", (_request, response) => {
 });
 
 router.post("/register", async (request, response) => {
-  const { username, email, password } = request.body;
+  const { firstname, lastname, username, email, password } = request.body;
 
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
   try {
-    const { id } = await Users.create(username, email, hash);
+    const { id } = await Users.create(firstname, lastname, username, email, hash);
     request.session.user = {
       id,
+      firstname,
+      lastname,
       username,
       email,
     };
@@ -30,7 +32,7 @@ router.post("/register", async (request, response) => {
   } catch (error) {
     console.log({ error });
     response.render("register", {
-      title: "Jrob's Term Project",
+      title: "Texas Hold Em",
       username,
       email,
     });
@@ -42,7 +44,7 @@ router.get("/login", (_request, response) => {
 });
 
 router.post("/login", async (request, response) => {
-  const { email, password } = request.body;
+  const { username, password } = request.body;
 
   try {
     const { id, username, password: hash } = await Users.findByEmail(email);
@@ -62,7 +64,7 @@ router.post("/login", async (request, response) => {
   } catch (error) {
     console.log({ error });
 
-    response.render("login", { title: "Jrob's Term Project", email });
+    response.render("login", { title: "Texas Hold Em", email });
   }
 });
 

@@ -1,9 +1,9 @@
 const db = require("./connection.js");
 
-const create = (username, email, hash) =>
+const create = (firstname, lastname, username, email, hash) =>
   db.one(
-    "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id",
-    [username, email, hash]
+    "INSERT INTO users (firstname, lastname, username, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+    [firstname, lastname, username, email, hash]
   );
 
 const findByEmail = (email) =>
