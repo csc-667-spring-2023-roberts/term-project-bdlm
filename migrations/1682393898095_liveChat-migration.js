@@ -5,12 +5,12 @@ exports.shorthands = undefined;
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
  */
 exports.up = pgm => {
-    pgm.createTable("liveChat", {
+    pgm.createTable("livechat", {
         id: "id",
-        userId: {
+        user_id: {
             type: "integer",
             notNull: true,
-            references: "user",
+            references: "users",
             foreignKeys: "id"
         },
         message: {
@@ -28,5 +28,5 @@ exports.up = pgm => {
    * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
    */
 exports.down = pgm => {
-    pgm.dropTable("liveChat");
+    pgm.dropTable("livechat");
 };

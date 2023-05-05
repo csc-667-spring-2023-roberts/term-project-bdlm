@@ -2,11 +2,11 @@ const db = require("./connection");
 
 /* ---Denean's logic for this particular file---
 1. Create Room -> referring the rooms that contain several tables to join, based on the betting range
-2. Check Rooms -> one room per matchType (based on wireframes, there should only be 4 match types)
+2. Check Rooms -> one room per match_type (based on wireframes, there should only be 4 match types)
 3. Create Game Table 
 4. List available game tables
 5. Add players -> player joins a table to play
-6. Update table -> for updating the playerCount
+6. Update table -> for updating the player_count
 7. Create player cards
 8. Draw cards from pile (???) 
 9. Update player cards -> as a result of drawing a card
@@ -14,44 +14,44 @@ const db = require("./connection");
 ----- IN PROGRESS -----
 */
 
-const createRoom = (matchType) => db.one(
-  "INSERT INTO gameRoom (matchType) VALUES ($1) RETURNING id", 
-  [matchType]
+const createRoom = (match_type) => db.one(
+  "INSERT INTO gameroom (match_type) VALUES ($1) RETURNING id", 
+  [match_type]
 );
-const checkRooms = (matchType) => db.any(
-  "SELECT COUNT(*) FROM gameRoom r WHERE r.matchType=$1",
-  [matchType]
+const checkRooms = (match_type) => db.any(
+  "SELECT COUNT(*) FROM gameroom r WHERE r.match_type=$1",
+  [match_type]
 )
-const createGameTable = (roomId, playerCount) => db.one(
-  "INSERT INTO gameTable (roomId, playerCount) VALUES ($1, $2)", 
-  [roomId, playerCount]
+const createGameTable = (room_id, player_count) => db.one(
+  "INSERT INTO gametable (room_id, player_count) VALUES ($1, $2)", 
+  [room_id, player_count]
 );
 // Gets tables that has not met max capacity of players
-const getTableList = async (roomId) => db.any(
-  "SELECT t.id FROM gameTable t WHERE t.roomId=$1 AND t.playerCount < 4",
-  [userId]
+const getTableList = async (room_id) => db.any(
+  "SELECT t.id FROM gametable t WHERE t.room_id=$1 AND t.player_count < 4",
+  [user_id]
 );
-const joinTable = async(tableId, userId) => { 
-  const { playerCount } = await db.one("SELECT playerCount FROM gameTable tWHERE t.id=$1", [tableId]);
+const joinTable = async(table_id, user_id) => { 
+  const { player_count } = await db.one("SELECT player_count FROM gametable tWHERE t.id=$1", [table_id]);
 
-  await db.none("INSERT INTO players (tableId, userId, tableOrder)", [tableId, userId, playerCount]);
+  await db.none("INSERT INTO players (table_id, user_id, tableOrder)", [table_id, user_id, player_count]);
 };
-const updateTable = (playerCount, tableId) => db.none(
-  "UPDATE gameTable SET playerCount=$1 WHERE tableId=$2",
-  [playerCount, tableId]
+const updateTable = (player_count, table_id) => db.none(
+  "UPDATE gametable SET player_count=$1 WHERE table_id=$2",
+  [player_count, table_id]
 );
-const createPlayerCards = (cardId, userId, cardOrder) => db.one(
-  "INSERT INTO gameCards (cardId, playerId, cardOrder) VALUES ($1, $2, $3)",
-  [cardId, userId, cardOrder]
+const createPlayerCards = (card_id, user_id, card_order) => db.one(
+  "INSERT INTO gamecards (card_id, player_id, card_order) VALUES ($1, $2, $3)",
+  [card_id, user_id, card_order]
 );
-const updatePlayerCards = (cardId, cardOrder, userId) => db.none(
-  "UPDATE gameCards SET cardId=$1 AND cardOrder=$2 WHERE playerId=$3",
-  [cardId, cardOrder, userId]
+const updatePlayerCards = (card_id, card_order, user_id) => db.none(
+  "UPDATE gamecards SET card_id=$1 AND card_order=$2 WHERE player_id=$3",
+  [card_id, card_order, user_id]
 );
 // Gets list of players inside the table
-const getPlayersList = (tableId) => db.any (
-  "SELECT id, username FROM user u, players p WHERE p.tableId=$1 AND p.userId=u.id",
-  [tableId]
+const getPlayersList = (table_id) => db.any (
+  "SELECT id, username FROM user u, players p WHERE p.table_id=$1 AND p.user_id=u.id",
+  [table_id]
 );
 module.exports = {
   createRoom,

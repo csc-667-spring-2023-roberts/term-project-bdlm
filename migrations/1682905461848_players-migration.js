@@ -7,17 +7,17 @@ exports.shorthands = undefined;
 exports.up = pgm => {
     pgm.createTable("players", {
         // id: "id",
-        userId: {
+        user_id: {
             type: "integer",
             notNull: true,
-            references: "user",
+            references: "users",
             foreignKeys: "id"
 
         }, 
-        tableId: {
+        table_id: {
             type: "integer",
             notNull: true,
-            references: "gameTable",
+            references: "gametable",
             foreignKeys: "id"
         },
         current: {

@@ -21,11 +21,11 @@ router.post("/register", async (request, response) => {
 
   try {
     const { id } = await Users.create(
-      firstname,
-      lastname,
       username,
       email,
-      hash
+      hash,
+      firstname, 
+      lastname
     );
     request.session.user = {
       id,

@@ -8,7 +8,7 @@ exports.shorthands = undefined;
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
  */
 exports.up = pgm => {
-    pgm.createTable("user", {
+    pgm.createTable("users", {
         id: "id",
         username: {
             type: "varchar(50)",
@@ -24,11 +24,11 @@ exports.up = pgm => {
             type: "char(70)",
             notNull: true
         },
-        firstName: {
+        firstname: {
             type: "varchar(256)",
             notNull: true
         },
-        lastName: {
+        lastname: {
             type:"varchar(256)",
             notNull: true
         },
@@ -43,5 +43,5 @@ exports.up = pgm => {
    * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
    */
 exports.down = pgm => {
-    pgm.dropTable("user");
+    pgm.dropTable("users");
 };
