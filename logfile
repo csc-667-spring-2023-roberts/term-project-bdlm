@@ -21,3 +21,20 @@
 2023-04-29 22:11:00.138 PDT [7235] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682831461)
 2023-04-29 22:39:07.318 PDT [8285] ERROR:  relation "session" does not exist at character 13
 2023-04-29 22:39:07.318 PDT [8285] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682833148)
+2023-04-29 22:48:52.651 PDT [8879] FATAL:  database "database-name" does not exist
+2023-04-29 22:58:43.917 PDT [9112] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:58:43.917 PDT [9112] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682834324)
+2023-04-29 23:02:01.050 PDT [9192] ERROR:  relation "session" does not exist at character 13
+2023-04-29 23:02:01.050 PDT [9192] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682834522)
+2023-04-29 23:02:22.850 PDT [9229] ERROR:  relation "session" does not exist at character 13
+2023-04-29 23:02:22.850 PDT [9229] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682834543)
+2023-04-30 20:33:08.150 PDT [12346] ERROR:  syntax error at or near "*" at character 6
+2023-04-30 20:33:08.150 PDT [12346] STATEMENT:  show * from session;
+2023-04-30 21:01:00.732 PDT [12936] ERROR:  relation "user" does not exist
+2023-04-30 21:01:00.732 PDT [12936] STATEMENT:  CREATE TABLE "liveChat" (
+	  "id" serial PRIMARY KEY,
+	  "userId" integer NOT NULL REFERENCES "user",
+	  "messages" varchar(256)
+	);
+2023-04-30 21:04:15.782 PDT [13105] ERROR:  relation "session" does not exist at character 13
+2023-04-30 21:04:15.782 PDT [13105] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682913856)

@@ -10,7 +10,7 @@ exports.up = pgm => {
         userId: {
             type: "integer",
             notNull: true,
-            references: "user",
+            references: "users",
             foreignKeys: "id"
         },
         messages: {
