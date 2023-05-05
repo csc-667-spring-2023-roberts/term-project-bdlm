@@ -1,12 +1,13 @@
-
 const express = require("express");
 const bcrypt = require("bcrypt");
 const Users = require("../../db/users.js");
+const {
+  redirectIfAuthenticated,
+} = require("../../middleware/redirect-if-authenticated.js");
 
 const router = express.Router();
 
 const SALT_ROUNDS = 10;
-
 
 router.get("/sign-up", (_request, response) => {
   response.render("sign-up", { title: "SIGN UP PAGE" });
@@ -19,7 +20,13 @@ router.post("/register", async (request, response) => {
   const hash = await bcrypt.hash(password, salt);
 
   try {
-    const { id } = await Users.create(firstname, lastname, username, email, hash);
+    const { id } = await Users.create(
+      firstname,
+      lastname,
+      username,
+      email,
+      hash
+    );
     request.session.user = {
       id,
       firstname,
@@ -31,8 +38,8 @@ router.post("/register", async (request, response) => {
     response.redirect("/lobby");
   } catch (error) {
     console.log({ error });
-    response.render("register", {
-      title: "Texas Hold Em",
+    response.render("sign-up", {
+      title: "BDLM Term Project",
       username,
       email,
     });
@@ -64,7 +71,7 @@ router.post("/login", async (request, response) => {
   } catch (error) {
     console.log({ error });
 
-    response.render("login", { title: "Texas Hold Em", email });
+    response.render("login", { title: "BDLM Term Project", email });
   }
 });
 
