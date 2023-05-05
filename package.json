@@ -1,13 +1,13 @@
 {
   "name": "team-bdlm",
   "version": "1.0.0",
-  "description": "",
+  "description": "Link to Trello project management tool:  https://trello.com/invite/teambdlm/ATTI9edced8eec8dbb3525309094deb24b2c412EEA96",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./server.js",
+    "start": "node ./backend/server.js",
     "start:dev": "concurrently \"npm:server:dev\" \"npm:build:dev\"",
-    "server:dev": "NODE_ENV=development nodemon -e js,pug --watch backend ./server.js",
+    "server:dev": "NODE_ENV=development nodemon -e js,pug --watch backend ./backend/server.js",
     "build": "webpack",
     "build:dev": "webpack --watch",
     "prepare": "husky install",
@@ -20,30 +20,41 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "connect-pg-simple": "^8.0.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "http-errors": "^2.0.0",
     "morgan": "^1.10.0",
     "node-pg-migrate": "^6.2.2",
     "pg": "^8.10.0",
     "pg-promise": "^11.4.3",
     "prettier": "^2.8.7",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1"
   },
   "devDependencies": {
     "babel-loader": "^9.1.2",
     "concurrently": "^8.0.1",
     "connect-livereload": "^0.6.1",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
+    "lint-staged": "^13.2.2",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.22",
-    "webpack": "^5.77.0",
-    "webpack-cli": "^5.0.1"
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.81.0",
+    "webpack-cli": "^5.0.2"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
     "frontend/**/*.js": "webpack"
+  },
+  "pg": {
+    "driver": "pg",
+    "user": "postgres"
   }
 }

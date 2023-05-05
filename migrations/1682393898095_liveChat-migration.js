@@ -1,40 +1,25 @@
 /* eslint-disable camelcase */
 
 exports.shorthands = undefined;
-
-/* eslint-disable camelcase */
-
 /**
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
  */
 exports.up = pgm => {
-    pgm.createTable("user", {
+    pgm.createTable("liveChat", {
         id: "id",
-        username: {
-            type: "varchar(50)",
+        userId: {
+            type: "integer",
             notNull: true,
-            unique: true
+            references: "user",
+            foreignKeys: "id"
         },
-        email: {
+        message: {
             type: "varchar(256)",
-            notNull: true,
-            unique: true
-        },
-        password: {
-            type: "char(70)",
-            notNull: true
-        },
-        firstName: {
-            type: "varchar(256)",
-            notNull: true
-        },
-        lastName: {
-            type:"varchar(256)",
             notNull: true
         },
         created_at: {
             type: "timestamp",
-            notNull: true,
+            notNull: true, 
             default: pgm.func("current_timestamp"),
         }
     });
@@ -43,5 +28,5 @@ exports.up = pgm => {
    * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
    */
 exports.down = pgm => {
-    pgm.dropTable("user");
+    pgm.dropTable("liveChat");
 };
