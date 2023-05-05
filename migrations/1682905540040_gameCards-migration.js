@@ -5,27 +5,27 @@ exports.shorthands = undefined;
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
  */
 exports.up = pgm => {
-    pgm.createTable("gameCards", {
+    pgm.createTable("gamecards", {
         id: "id",
-        tableId: {
+        table_id: {
             type: "integer",
             notNull: true,
-            references: "gameTable",
+            references: "gametable",
             foreignKeys: "id"
         },
-        cardId: {
+        card_id: {
             type: "integer",
             notNull: true,
             references: "cards",
             foreignKeys: "id"
         },
-        userId: {
+        user_id: {
             type: "integer",
             notNull: true,
-            references: "user",
+            references: "users",
             foreignKeys: "id"
         },
-        cardOrder: {
+        card_order: {
             type: "integer",
             notNull: true
         },
@@ -33,7 +33,7 @@ exports.up = pgm => {
             type: "boolean",
             notNull: true
         },
-        drawPile: {
+        draw_pile: {
             type: "boolean",
             notNull: true
         },
@@ -55,5 +55,5 @@ exports.up = pgm => {
    * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
    */
 exports.down = pgm => {
-    pgm.dropTable("gameCards");
+    pgm.dropTable("gamecards");
 };

@@ -5,9 +5,9 @@ exports.shorthands = undefined;
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
  */
 exports.up = pgm => {
-    pgm.createTable("gameRoom", {
+    pgm.createTable("gameroom", {
         id:"id",
-        matchType: {
+        match_type: {
             type: "varchar(256)",
             notNull: true
         }
@@ -17,5 +17,5 @@ exports.up = pgm => {
    * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
    */
 exports.down = pgm => {
-    pgm.dropTable("gameRoom");
+    pgm.dropTable("gameroom");
 };
