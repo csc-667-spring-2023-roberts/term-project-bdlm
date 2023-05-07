@@ -14,7 +14,7 @@ router.get("/register", (_request, response) => {
 });
 
 router.post("/register", async (request, response) => {
-  const { firstname, lastname, username, email, password } = request.body;
+  const { username, email, password, firstname, lastname } = request.body;
 
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
@@ -29,10 +29,10 @@ router.post("/register", async (request, response) => {
     );
     request.session.user = {
       id,
-      firstname,
-      lastname,
       username,
       email,
+      firstname,
+      lastname,
     };
 
     response.redirect("/lobby");
