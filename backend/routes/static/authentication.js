@@ -9,8 +9,8 @@ const router = express.Router();
 
 const SALT_ROUNDS = 10;
 
-router.get("/sign-up", (_request, response) => {
-  response.render("sign-up", { title: "SIGN UP PAGE" });
+router.get("/register", (_request, response) => {
+  response.render("register", { title: "SIGN UP PAGE" });
 });
 
 router.post("/register", async (request, response) => {
@@ -24,7 +24,7 @@ router.post("/register", async (request, response) => {
       username,
       email,
       hash,
-      firstname, 
+      firstname,
       lastname
     );
     request.session.user = {
@@ -38,7 +38,7 @@ router.post("/register", async (request, response) => {
     response.redirect("/lobby");
   } catch (error) {
     console.log({ error });
-    response.render("sign-up", {
+    response.render("register", {
       title: "BDLM Term Project",
       username,
       email,
