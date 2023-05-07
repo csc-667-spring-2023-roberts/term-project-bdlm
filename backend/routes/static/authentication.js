@@ -54,7 +54,11 @@ router.post("/login", async (request, response) => {
   const { username, password } = request.body;
 
   try {
-    const { id, username, password: hash } = await Users.findByEmail(email);
+    const {
+      id,
+      username,
+      password: hash,
+    } = await Users.findByUsername(username);
     const isValidUser = await bcrypt.compare(password, hash);
 
     if (isValidUser) {
@@ -71,7 +75,7 @@ router.post("/login", async (request, response) => {
   } catch (error) {
     console.log({ error });
 
-    response.render("login", { title: "BDLM Term Project", email });
+    response.render("login", { title: "BDLM Term Project", username });
   }
 });
 
