@@ -4,22 +4,6 @@ const { isAuthenticated } = require("../../middleware/is-authenticated.js");
 
 const router = express.Router();
 
-<<<<<<< HEAD
-router.post("/create", async (request, response) => {
-  const { id: user_id } = request.session.user;
-
-  try {
-    const { id: table_id } = await Games.createGameTable(user_id);
-    response, redirect(`/games/${table_id}`);
-  } catch (error) {
-    console.log({ error });
-    response.redirect("/lobby");
-  }
-});
-router.get("/:id", (request, response) => {
-  const { id } = request.params;
-  response.render("games", { id, title: "BDLM Term Project" });
-=======
 router.get('/:match_type', async(request, response) => {
     const { match_type } = request.params;
     try {
@@ -56,7 +40,6 @@ router.post("/createTable", async (request, response) => {
 router.get("/:id", (request, response) => {
     const { id } = request.params;
     response.render("games", { id, title: "Game Page"});
->>>>>>> c9458ea (creating game room from routes)
 });
 
 module.exports = router;

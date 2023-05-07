@@ -21,6 +21,7 @@ const tableRoutes = require("./routes/static/table.js");
 const testRoutes = require("./routes/test/index.js");
 const chatRoutes = require("./routes/static/chat.js");
 const apiGamesRoutes = require("./routes/api/games.js");
+const lobbyRoutes = require("./routes/static/lobby.js");//may7
 const app = express();
 
 app.use(morgan("dev"));
@@ -63,6 +64,7 @@ app.use(express.static(path.join(__dirname, "static")));
 app.use(addSessionLocals);
 
 app.use("/", homeRoutes);
+app.use("/lobby", isAuthenticated, lobbyRoutes);
 app.use("/authentication", authenticationRoutes);
 app.use("/gameroom", isAuthenticated, gameroomRoutes);
 // app.use("/tableroom", tableroomRoutes);
