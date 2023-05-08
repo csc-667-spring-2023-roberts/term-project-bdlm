@@ -1,5 +1,6 @@
 <html>
 <!--  -->
+
 <head>
     <title>
         <%= title %>
@@ -11,22 +12,17 @@
 <body>
     <h1> Login Page (unauthenticated)</h1>
     <ul>
-        <li><a href="/lobby">Lobby</a></li>
-        <li><a href="/authentication/login">Login</a></li>
         <li><a href="/">Home</a></li>
-        <li><a href="/authentication/sign-up">Sign Up</a></li>
+        <li><a href="/authentication/register">Sign Up</a></li>
     </ul>
     <form method="post" action="/authentication/login">
         <label>
-          <em>Email</em>
-          <input name="email" autocomplete="email" />
+          <em>Username</em>
+          <input name="username" autocomplete="username" placeholder="Username" />
         </label>
         <label>
           <em>Password</em>
-          <input
-            name="password"
-            type="password"
-            autocomplete="current-password"
+          <input name="password" type="password" autocomplete="current-password"
           />
         </label>
         <input type="submit" value="Login" />
