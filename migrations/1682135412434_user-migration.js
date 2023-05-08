@@ -21,7 +21,7 @@ exports.up = pgm => {
             unique: true
         },
         password: {
-            type: "char(70)",
+            type: "char(60)",
             notNull: true
         },
         firstname: {
