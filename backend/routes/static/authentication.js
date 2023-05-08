@@ -54,20 +54,17 @@ router.post("/login", async (request, response) => {
   const { username, password } = request.body;
 
   try {
-    const {
-      id,
-      username,
-      password: hash,
-    } = await Users.findByUsername(username);
+    const { id, password: hash } = await Users.findByUsername(username);
+    console.log(username);
+    console.log(password);
+    console.log(hash);
     const isValidUser = await bcrypt.compare(password, hash);
-
+    console.log(isValidUser);
     if (isValidUser) {
       request.session.user = {
         id,
-        username,
-        email,
+        username
       };
-
       response.redirect("/lobby");
     } else {
       throw "Credentials invalid";
