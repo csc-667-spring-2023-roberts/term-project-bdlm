@@ -14,6 +14,7 @@ const db = require("./db/connection.js");
 
 const homeRoutes = require("./routes/static/home.js");
 const authenticationRoutes = require("./routes/static/authentication.js");
+const lobbyRoutes = require("./routes/static/lobby.js");
 const gameroomRoutes = require("./routes/static/gameroom.js");
 const tableRoutes = require("./routes/static/table.js");
 // const tableroomRoutes = require("./routes/static/tableroom.js");
@@ -64,6 +65,7 @@ app.use(addSessionLocals);
 
 app.use("/", homeRoutes);
 app.use("/authentication", authenticationRoutes);
+app.use("/lobby", isAuthenticated, lobbyRoutes);
 app.use("/gameroom", isAuthenticated, gameroomRoutes);
 // app.use("/tableroom", tableroomRoutes);
 app.use("/table", tableRoutes);
