@@ -14,17 +14,25 @@ router.get("/sign-up", (_request, response) => {
 });
 
 router.post("/register", async (request, response) => {
-  const { username, email, password } = request.body;
+  const { username, email, password, firstName, lastName } = request.body;
 
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
   try {
-    const { id } = await Users.create(username, email, hash);
+    const { id } = await Users.create(
+      username,
+      email,
+      hash,
+      firstName,
+      lastName
+    );
     request.session.user = {
       id,
       username,
       email,
+      firstName,
+      lastName,
     };
 
     response.redirect("/lobby");
