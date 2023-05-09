@@ -1,5 +1,8 @@
 const db = require("./connection");
 
+const { create } = require("./games/create.js");
+const { join } = require("./games/join.js");
+
 /* ---Denean's logic for this particular file---
 1. Create Room -> referring the rooms that contain several tables to join, based on the betting range
 2. Check Rooms -> one room per match_type (based on wireframes, there should only be 4 match types)
@@ -72,32 +75,9 @@ const getPlayersList = (table_id) =>
     [table_id]
   );
 
-const create = async (user_id, table_type_id) => {
-  // Create the game table
-  const { id: table_id, created_at } = await db.one(
-    "INSERT INTO gametable (table_type_id) VALUES ($1) RETURNING id, created_at",
-    [table_type_id]
-  );
-
-  // Insert the creating user into the players table
-  await db.none(
-    `INSERT INTO players (user_id, table_id, current, "tableOrder", bet) VALUES ($1, $2, true, 0, 0)`,
-    [user_id, table_id]
-  );
-
-  // Copy of deck for this game
-  await db.none(
-    `INSERT INTO game_decks (table_id, card_id) SELECT $1, id FROM cards ORDER BY RANDOM()`,
-    [table_id]
-  );
-
-  return { id: table_id, created_at };
-};
-
 const tableTypes = () => db.many("SELECT * FROM table_types");
 
 module.exports = {
-  create,
   createRoom,
   checkRooms,
   createGameTable,
@@ -108,4 +88,6 @@ module.exports = {
   updatePlayerCards,
   getPlayersList,
   tableTypes,
+  create,
+  join,
 };
