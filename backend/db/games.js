@@ -2,6 +2,7 @@ const db = require("./connection");
 
 const { create } = require("./games/create.js");
 const { join } = require("./games/join.js");
+const { availableGames } = require("./games/available.js");
 
 /* ---Denean's logic for this particular file---
 1. Create Room -> referring the rooms that contain several tables to join, based on the betting range
@@ -88,6 +89,8 @@ module.exports = {
   updatePlayerCards,
   getPlayersList,
   tableTypes,
+  // Sub module
   create,
   join,
+  availableGames,
 };

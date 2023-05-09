@@ -15,6 +15,14 @@
             </select>
             <button type="submit" value="Create Game">Create Game</button>
           </form>
+          <h2>Available Tables</h2>
+          <% available_tables.forEach(table => { %>
+          <form method="post" action="/api/games/<%= table.id %>/join">
+            <button type="submit" value="Join Game">
+              Join Game (<%= table.id %>)
+            </button>
+          </form>
+          <% }) %>
         </div>
         <div class="col-sm">
           <div id="chat-container">

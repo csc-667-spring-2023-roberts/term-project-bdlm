@@ -4,10 +4,13 @@ const Games = require("../../db/games.js");
 
 const router = express.Router();
 
-router.get("/", async (_request, response) => {
+router.get("/", async (request, response) => {
+  const { id: user_id } = request.session.user;
+
   response.render("lobby", {
     title: "LOBBY",
     table_types: await Games.tableTypes(),
+    available_tables: await Games.availableGames(user_id),
   });
 });
 
