@@ -4,7 +4,18 @@
     <%- include('partials/authenticated_nav.ejs') %>
     <div class="container">
       <div class="row">
-
+        <div class="col-sm">
+          <form method="post" action="/api/games/create">
+            <select name="table_type_id">
+              <% table_types.forEach(({ id, small_blind, big_blind }) => { %>
+              <option value="<%= id %>">
+                <%= small_blind %>/<%= big_blind %>
+              </option>
+              <% }) %>
+            </select>
+            <button type="submit" value="Create Game">Create Game</button>
+          </form>
+        </div>
         <div class="col-sm">
           <div id="chat-container">
             <div id="messages"></div>

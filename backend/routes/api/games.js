@@ -18,12 +18,16 @@ router.get("/", async (request, response) => {
   }
 });
 
-router.get("/create", async (request, response) => {
+router.post("/create", async (request, response) => {
   const { id: user_id } = request.session.user;
+  const { table_type_id } = request.query;
   const io = request.app.get("io");
 
   try {
-    const { id: game_id, created_at } = await Games.create(user_id);
+    const { id: game_id, created_at } = await Games.create(
+      user_id,
+      table_type_id
+    );
 
     io.emit(GAME_CREATED, { game_id, created_at });
     response.redirect(`/games/${game_id}`);
