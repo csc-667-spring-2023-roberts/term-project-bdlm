@@ -17,4 +17,6 @@ exports.up = (pgm) => {
   pgm.sql(sql);
 };
 
-exports.down = (pgm) => {};
+exports.down = (pgm) => {
+  pgm.sql("DELETE FROM cards");
+};
