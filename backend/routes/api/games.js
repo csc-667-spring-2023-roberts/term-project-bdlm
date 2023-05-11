@@ -20,7 +20,7 @@ router.get("/", async (request, response) => {
 
 router.post("/create", async (request, response) => {
   const { id: user_id } = request.session.user;
-  const { table_type_id } = request.query;
+  const { table_type_id } = request.body;
   const io = request.app.get("io");
 
   try {
