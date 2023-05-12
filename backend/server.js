@@ -13,6 +13,7 @@ require("dotenv").config();
 const db = require("./db/connection.js");
 
 const homeRoutes = require("./routes/static/home.js");
+const userHomeRoutes = require("./routes/static/userhome.js");
 const authenticationRoutes = require("./routes/static/authentication.js");
 const lobbyRoutes = require("./routes/static/lobby.js");
 const gameroomRoutes = require("./routes/static/gameroom.js");
@@ -69,6 +70,7 @@ app.use("/authentication", authenticationRoutes);
 
 app.use("/games", isAuthenticated, gameTableRoutes);
 app.use("/gameroom", isAuthenticated, gameroomRoutes);
+app.use("/userhome", isAuthenticated, userHomeRoutes);
 app.use("/table", tableRoutes);
 app.use("/test", testRoutes);
 app.use("/chat", chatRoutes);
