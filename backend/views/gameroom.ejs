@@ -1,51 +1,8 @@
 <html>
-  <head>
-    <title><%= title %></title>
-    <!-- <script src="/scripts/bundle.js"></script> -->
-    <link rel="stylesheet" href="/stylesheets/gameroom.css" />
-  </head>
-
+  <%- include('partials/head.ejs') %>
+  <%- include('partials/authenticated_nav.ejs') %> 
   <body>
-    <h1>
-      Game Room Page (authenticated) Table ID: <%= table_id %> User ID: <%=
-      user_id %>
-    </h1>
-    <ul>
-      <li><a href="/userhome">User's Home Page</a></li>
-    </ul>
+    <%-include('partials/game-table.ejs') %> 
+    <%- include('partials/chat.ejs') %>
   </body>
 </html>
-
-<div class="grid-container">
-  
-    <div class="player-2"></div>
-    <div class="player-1"></div>
-    <div class="player-3"></div>
-    <div class="player-4"></div>
-    <div class="player-5"></div>
-    <div class="player-7"></div>
-    <div class="player-6"></div>
-    <div class="player-8"></div>
-    <div class="player-9"></div>
-    <div class="player-10"></div>
-    <div class="poker-table">
-      <div class="table-cards"></div>
-      <div class="game-pot"></div>
-      <div class="game-stage"></div>
-      <div class="player-turn"></div>
-    </div>
-    <div class="action-bar">
-      <div class="check-btn"></div>
-      <div class="fold-btn"></div>
-      <div class="call-btn"></div>
-      <div class="bet-btn"></div>
-      <div class="all-in-btn"></div>
-    </div>
-    <div class="game-log">
-      <div class="game-log-txt"></div>
-      <div class="game-log-txt-type"></div>
-    </div>
-    <div class="footer"></div>
-    <div class="game-info"></div>
-  
-</div>
