@@ -1,13 +1,18 @@
 <html>
-  <%- include('partials/head.ejs') %>
+<%- include('partials/head.ejs') %>
+
   <body>
-    <%- include('partials/unauthenticated-nav.ejs') %>
     <div class="container">
       <div class="row">
-        <h1>Texas Hold'Em</h1>
+        <h1>Texas Hold'Em | Home</h1>
 
-        <%- include('partials/login-form.ejs') %>
+        <form method="post" action="/authentication/login">
+          <div>
+            <button type="submit" value="Enter">Enter</button>
+          </div>
+        </form>
       </div>
     </div>
   </body>
+
 </html>

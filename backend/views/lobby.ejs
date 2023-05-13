@@ -1,50 +1,60 @@
 <html>
-  <%- include('partials/head.ejs') %>
+<%- include('partials/head.ejs') %>
+
   <body>
     <%- include('partials/authenticated_nav.ejs') %>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-          <form method="post" action="/api/games/create">
-            <select name="table_type_id">
-              <% table_types.forEach(({ id, small_blind, big_blind }) => { %>
-              <option value="<%= id %>">
-                <%= small_blind %>/<%= big_blind %>
-              </option>
-              <% }) %>
-            </select>
-            <button type="submit" value="Create Game">Create Game</button>
-          </form>
-          <h2>Available Tables</h2>
-          <% available_tables.forEach(table => { %>
-          <form method="post" action="/api/games/<%= table.id %>/join">
-            <button type="submit" value="Join Game">
-              Join Game (<%= table.id %>)
-            </button>
-          </form>
-          <% }) %>
-        </div>
-        <div class="col-sm">
-          <div id="chat-container">
-            <div id="messages"></div>
-            <label>
-              <input
-                id="chatMessage"
-                name="chat-message"
-                placeholder="Message..."
-              />
-            </label>
+      <%- include('partials/lobby.ejs') %>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+
+              <h2>Join Betting Rollers</h2>
+              <% available_tables.forEach(table=> { %>
+
+                <form method="post" action="/api/games/<%= table.id %>/join">
+                  <button type="submit" value="Join Game">
+                    Join Game (<%= table.id %>)
+                  </button>
+                </form>
+                <% }) %>
+
+                  <form method="post" action="/api/games/create">
+                    <select name="table_type_id">
+                      <% table_types.forEach(({ id, small_blind, big_blind })=> { %>
+                        <option value="<%= id %>">
+                          <%= small_blind %>/<%= big_blind %>
+                        </option>
+                        <% }) %>
+                    </select>
+                    <button type="submit" value="Enter Room">Enter Room</button>
+                  </form>
+
+            </div>
+
+            <div class="grid-container">
+              <label>Chat with other players!</label>
+              <br>
+              <div class="col-sm">
+                <div id="chat-container">
+                  <div id="messages"></div>
+                  <label>
+                    <br>
+                    <input id="chatMessage" name="chat-message" placeholder="Message..." />
+                  </label>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-      </div>
-    </div>
 
-    <template id="available-game-item">
-      <div>
-        <li>
-          <a href="#">Join <span>42</span></a>
-        </li>
-      </div>
-    </template>
+        <template id="available-game-item">
+          <div>
+            <li>
+              <a href="#">Join <span>42</span></a>
+            </li>
+          </div>
+        </template>
   </body>
+
 </html>
