@@ -97,7 +97,7 @@ body,
   gap: 0px 0px;
   grid-template-areas:
     "check-btn call-btn all-in-btn"
-    "fold-btn bet-btn bet-btn";
+    "fold-btn bet-btn bet-btn ";
   grid-area: 11 / 5 / 12 / 10;
 }
 
@@ -155,7 +155,7 @@ body,
 }
 
 .grid-container *:after {
-  content: attr(class);
+  content: attr(class); /*makes classes show*/
   position: absolute;
   top: 0;
   left: 0;
