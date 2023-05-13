@@ -1,18 +1,26 @@
 <html>
 <%- include('partials/head.ejs') %>
+  <%- include('partials/home.ejs') %>
 
-  <body>
-    <div class="container">
-      <div class="row">
-        <h1>Texas Hold'Em | Home</h1>
 
-        <form method="post" action="/authentication/login">
-          <div>
-            <button type="submit" value="Enter">Enter</button>
+    <body>
+      <div class="grid-container">
+
+        <div class="row">
+          <h1>Texas Hold'Em</h1>
+
+          <!-- <img src="../static/images/main_page_background.png" alt="OOPS! No image here!"> -->
+
+          <div class="container">
+            <div class="center">
+            <form method="post" action="/authentication/login">
+              <button type="submit" value="Enter" class="block">Enter</button>
+            </form>
           </div>
-        </form>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </body>
+    </body>
 
 </html>

@@ -1,3 +1,40 @@
 body {
-  background-color: rgba(0, 0, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+  background-image: url(../images/main_page_background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  font-size: 50px;
+  color: white;
+  text-align: center;
+}
+
+img {
+  border-radius: 8px;
+}
+
+.container {
+  height: 200px;
+  position: relative;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 250%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.block {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 28px;
+  cursor: pointer;
+  text-align: center;
 }
