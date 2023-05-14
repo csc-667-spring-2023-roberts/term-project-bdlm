@@ -1,13 +1,28 @@
 <html>
-  <%- include('partials/head.ejs') %>
+
+<head>
+  <link href="/stylesheets/home.css" rel="stylesheet" type="text/css">
+</head>
+<%- include('partials/head.ejs') %>
+
   <body>
-    <%- include('partials/unauthenticated-nav.ejs') %>
-    <div class="container">
+    <div class="grid-container">
+
       <div class="row">
         <h1>Texas Hold'Em</h1>
 
-        <%- include('partials/login-form.ejs') %>
+        <!-- <img src="../static/images/main_page_background.png" alt="OOPS! No image here!"> -->
+
+        <div class="container">
+          <div class="center">
+            <form method="post" action="/authentication/login">
+              <button type="submit" value="Enter" class="block">Enter</button>
+            </form>
+          </div>
+        </div>
       </div>
+
     </div>
   </body>
+
 </html>
