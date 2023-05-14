@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import events from "../backend/sockets/constants";
 
-const socket = io();
+const socket = io({ query: { path: window.location.pathname } });
 
 const messageContainer = document.querySelector("#messages");
 

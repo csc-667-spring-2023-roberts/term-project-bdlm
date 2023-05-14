@@ -5,21 +5,24 @@
     <div class="container">
       <div class="row">
         <div class="col-sm">
-          <a
-            href="/api/games/create"
-            id="create-game-link"
-            class="ms-btn ms-action"
-            >Create Game</a
-          >
-          <ul id="game-list">
-            <% for(let i = 0; i < games.length; i++) { %>
-            <li>
-              <a href="/api/games/<%= games[i].id %>/join"
-                >Join <span><%= games[i].id %></span></a
-              >
-            </li>
-            <% } %>
-          </ul>
+          <form method="post" action="/api/games/create">
+            <select name="table_type_id">
+              <% table_types.forEach(({ id, small_blind, big_blind }) => { %>
+              <option value="<%= id %>">
+                <%= small_blind %>/<%= big_blind %>
+              </option>
+              <% }) %>
+            </select>
+            <button type="submit" value="Create Game">Create Game</button>
+          </form>
+          <h2>Available Tables</h2>
+          <% available_tables.forEach(table => { %>
+          <form method="post" action="/api/games/<%= table.id %>/join">
+            <button type="submit" value="Join Game">
+              Join Game (<%= table.id %>)
+            </button>
+          </form>
+          <% }) %>
         </div>
         <div class="col-sm">
           <div id="chat-container">

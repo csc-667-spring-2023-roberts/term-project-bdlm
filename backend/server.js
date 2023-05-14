@@ -13,15 +13,16 @@ require("dotenv").config();
 const db = require("./db/connection.js");
 
 const homeRoutes = require("./routes/static/home.js");
+const userHomeRoutes = require("./routes/static/userhome.js");
 const authenticationRoutes = require("./routes/static/authentication.js");
 const lobbyRoutes = require("./routes/static/lobby.js");
 const gameroomRoutes = require("./routes/static/gameroom.js");
 const tableRoutes = require("./routes/static/table.js");
-// const tableroomRoutes = require("./routes/static/tableroom.js");
-// const userhomeRoutes = require("./routes/static/userhome.js");
 const testRoutes = require("./routes/test/index.js");
 const chatRoutes = require("./routes/static/chat.js");
 const apiGamesRoutes = require("./routes/api/games.js");
+const gameTableRoutes = require("./routes/static/games.js");
+
 const app = express();
 
 app.use(morgan("dev"));
@@ -34,7 +35,7 @@ if (process.env.NODE_ENV === "development") {
   const connectLiveReload = require("connect-livereload");
 
   const liveReloadServer = livereload.createServer();
-  liveReloadServer.watch(path.join(__dirname, "backend", "static"));
+  liveReloadServer.watch(path.join(__dirname, "static"));
   liveReloadServer.server.once("connection", () => {
     setTimeout(() => {
       liveReloadServer.refresh("/");
@@ -64,12 +65,13 @@ app.use(express.static(path.join(__dirname, "static")));
 app.use(addSessionLocals);
 
 app.use("/", homeRoutes);
-app.use("/authentication", authenticationRoutes);
 app.use("/lobby", isAuthenticated, lobbyRoutes);
+app.use("/authentication", authenticationRoutes);
+
+app.use("/games", isAuthenticated, gameTableRoutes);
 app.use("/gameroom", isAuthenticated, gameroomRoutes);
-// app.use("/tableroom", tableroomRoutes);
+app.use("/userhome", isAuthenticated, userHomeRoutes);
 app.use("/table", tableRoutes);
-// app.use("/userhome", userhomeRoutes);
 app.use("/test", testRoutes);
 app.use("/chat", chatRoutes);
 app.use("/api/games", isAuthenticated, apiGamesRoutes);
