@@ -1,26 +1,28 @@
 <html>
+
+<head>
+  <link href="/stylesheets/home.css" rel="stylesheet" type="text/css">
+</head>
 <%- include('partials/head.ejs') %>
-  <%- include('partials/home.ejs') %>
 
+  <body>
+    <div class="grid-container">
 
-    <body>
-      <div class="grid-container">
+      <div class="row">
+        <h1>Texas Hold'Em</h1>
 
-        <div class="row">
-          <h1>Texas Hold'Em</h1>
+        <!-- <img src="../static/images/main_page_background.png" alt="OOPS! No image here!"> -->
 
-          <!-- <img src="../static/images/main_page_background.png" alt="OOPS! No image here!"> -->
-
-          <div class="container">
-            <div class="center">
+        <div class="container">
+          <div class="center">
             <form method="post" action="/authentication/login">
               <button type="submit" value="Enter" class="block">Enter</button>
             </form>
           </div>
-          </div>
         </div>
-
       </div>
-    </body>
+
+    </div>
+  </body>
 
 </html>

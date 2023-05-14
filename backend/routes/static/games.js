@@ -8,10 +8,11 @@ router.get("/:table_id", async (request, response) => {
   const { table_id } = request.params;
 
   // TODO Send game state to user
-  response.render("gameroom", {
+  response.render("tableroom", {
     table_id,
     user_id,
     title: `Table ${table_id}`,
+    available_tables: await Games.availableGames(user_id),
   });
 });
 
