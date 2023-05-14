@@ -1,13 +1,41 @@
 <html>
-  <body>
-    <div class="grid-container">
-      <%- include('partials/head.ejs') %>
-      <div class="container">
-        <%- include('partials/unauthenticated-nav.ejs') %>
-        <h1>Texas Hold'Em | Login</h1>
+<%- include('partials/login.ejs') %>
+  <%- include('partials/head.ejs') %>
+    <%- include('partials/unauthenticated-nav.ejs') %>
 
-        <%- include('partials/login-form.ejs') %>
-      </div>
-    </div>
-  </body>
+      <body>
+        <div class="grid-container">
+          <div class="container">
+
+            <h1> Login</h1>
+
+            <form method="post" action="/authentication/login">
+              <div class="row">
+                <div class="col-sm">
+                  <div class="ms-form-group">
+                    <label><i class="far fa-envelope-open"></i> Username</label>
+                    <input name="username" autocomplete="username" placeholder="Username" />
+                  </div>
+                </div>
+
+                <div class="col-sm">
+                  <div class="ms-form-group">
+                    <label><i class="far fa-key"></i> Password</label>
+                    <input name="password" type="password" placeholder="Password" autocomplete="current-password" />
+                  </div>
+                </div>
+                <br>
+                <div>
+                  <input type="submit" value="Login" class="ms-btn ms-primary ms-fullwidth" />
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </body>
+
 </html>

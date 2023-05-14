@@ -1,74 +1,55 @@
 <html>
-  <%- include('partials/head.ejs') %>
-  <body>
+<%- include('partials/head.ejs') %>
+  <%- include('partials/register.ejs') %>
     <%- include('partials/unauthenticated-nav.ejs') %>
-    <div class="container">
-      <div class="row">
-        <h1>Texas Hold'Em | Register</h1>
 
-        <form method="post" action="/authentication/register">
-          <div class="row">
-            <div class="col-sm">
-              <div class="ms-form-group">
-                <label><i class="far fa-user"></i> First Name</label>
-                <input
-                  name="firstname"
-                  autocomplete="firstname"
-                  placeholder="First Name"
-                />
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="ms-form-group">
-                <label><i class="far fa-user"></i> Last Name</label>
-                <input
-                  name="lastname"
-                  autocomplete="lastname"
-                  placeholder="Last Name"
-                />
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="ms-form-group">
-                <label><i class="far fa-user"></i> Username</label>
-                <input
-                  name="username"
-                  autocomplete="username"
-                  placeholder="Username"
-                />
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="ms-form-group">
-                <label><i class="far fa-envelope-open"></i> Email</label>
-                <input 
-                name="email" 
-                type="email"
-                autocomplete="email" 
-                placeholder="Email" />
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="ms-form-group">
-                <label><i class="far fa-key"></i> Password</label>
-                <input
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                  autocomplete="current-password"
-                />
-              </div>
-            </div>
-            <div>
-              <input
-                type="submit"
-                value="Login"
-                class="ms-btn ms-primary ms-fullwidth"
-              />
+      <body>
+        <div class="grid-container">
+          <div class="container">
+            <div class="row">
+              <h1>Texas Hold'Em | Register</h1>
+
+              <form method="post" action="/authentication/register">
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="ms-form-group">
+                      <label><i class="far fa-user"></i> First Name</label>
+                      <input name="firstname" autocomplete="firstname" placeholder="First Name" />
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <div class="ms-form-group">
+                      <label><i class="far fa-user"></i> Last Name</label>
+                      <input name="lastname" autocomplete="lastname" placeholder="Last Name" />
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <div class="ms-form-group">
+                      <label><i class="far fa-user"></i> Username</label>
+                      <input name="username" autocomplete="username" placeholder="Username" />
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <div class="ms-form-group">
+                      <label><i class="far fa-envelope-open"></i> Email</label>
+                      <input name="email" type="email" autocomplete="email" placeholder="Email" />
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <div class="ms-form-group">
+                      <label><i class="far fa-key"></i> Password</label>
+                      <input name="password" type="password" placeholder="Password" autocomplete="current-password" />
+                    </div>
+                  </div>
+                  <br>
+                  <div>
+                    <input type="submit" value="Login" class="ms-btn ms-primary ms-fullwidth" />
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-        </form>
-      </div>
-    </div>
-  </body>
+        </div>
+      </body>
+
 </html>
