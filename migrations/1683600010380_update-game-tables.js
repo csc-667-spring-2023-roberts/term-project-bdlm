@@ -30,7 +30,7 @@ exports.down = (pgm) => {
     room_id: {
       type: "integer",
       notNull: true,
-      references: "gameroom",
+      references: "tableroom",
       foreignKeys: "id",
     },
     player_count: {
