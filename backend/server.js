@@ -69,9 +69,9 @@ app.use("/authentication", authenticationRoutes);
 
 app.use("/games", isAuthenticated, gameTableRoutes);
 app.use("/tableroom", isAuthenticated, tableroomRoutes);
-app.use("/table", tableRoutes);
+app.use("/table", isAuthenticated, tableRoutes);
 app.use("/test", testRoutes);
-app.use("/chat", chatRoutes);
+app.use("/chat", isAuthenticated, chatRoutes);
 app.use("/api/games", isAuthenticated, apiGamesRoutes);
 
 server.listen(PORT, () => {
