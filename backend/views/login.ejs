@@ -1,36 +1,13 @@
 <html>
-<!--  -->
-<head>
-    <title>
-        <%= title %>
-    </title>
-    <script src=”/scripts/bundle.js></script>
-    <link rel=”stylesheet” href=”/stylesheets/home.css” />
-</head>
+  <body>
+    <div class="grid-container">
+      <%- include('partials/head.ejs') %>
+      <div class="container">
+        <%- include('partials/unauthenticated-nav.ejs') %>
+        <h1>Texas Hold'Em | Login</h1>
 
-<body>
-    <h1> Login Page (unauthenticated)</h1>
-    <ul>
-        <li><a href="/lobby">Lobby</a></li>
-        <li><a href="/authentication/login">Login</a></li>
-        <li><a href=”/”>Home</a></li>
-        <li><a href=”/authentication/sign-up”>Sign Up</a></li>
-    </ul>
-    <form method="post" action="/authentication/login">
-        <label>
-          <em>Email</em>
-          <input name="email" autocomplete="email" />
-        </label>
-        <label>
-          <em>Password</em>
-          <input
-            name="password"
-            type="password"
-            autocomplete="current-password"
-          />
-        </label>
-        <input type="submit" value="Login" />
-      </form>
-</body>
-
+        <%- include('partials/login-form.ejs') %>
+      </div>
+    </div>
+  </body>
 </html>

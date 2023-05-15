@@ -1,20 +1,66 @@
-<!--  -->
-<div id="game-board">
-    <% for(let row = 0; row < 3; row++ ) { %>
-    <div class="game-board-row">
-      <% for(let column = 0; column< 3; column++) { %>
-      <div
-        class="game-cell"
-        data-row="<%= row %>"
-        data-column="<%= column %>"
-      ></div>
-      <% } %>
-    </div>
-    <% } %>
-  </div>
-  <div id="users-list">
-    <template id="user-item">
-      <div class="user"></div>
-    </template>
-  </div>
+
+
+  <head>
+    <title><%= title %></title>
+    <!-- <script src="/scripts/bundle.js"></script> -->
+    <link rel="stylesheet" href="/stylesheets/gameroom.css" />
+    <script src="/scripts/scripts.js"></script>
+  </head>
+
+  <body>
+      Game Room Page (authenticated) Table ID: <%= table_id %> User ID: <%=
+      user_id %>
+    </body>
+
+
+<div class="grid-container">
   
+    <div class="player-2"></div>
+    <div class="player-1">Hello</div>
+    <div class="player-3"></div>
+    <div class="player-4"></div>
+    <div class="player-5"></div>
+    <div class="player-7"></div>
+    <div class="player-6"></div>
+    <div class="player-8"></div>
+    <div class="player-9"></div>
+    <div class="player-10"></div>
+
+    <div class="poker-table">
+      <div class="table-cards"></div>
+      <div class="game-pot"></div>
+      <div class="game-stage"></div>
+      <div class="player-turn"></div>
+    </div>
+
+    
+    <form class="action-bar" method="get" action="/api/player-move">
+        <div class="all-in-btn">
+          <button type="submit" id="all-in-btn"> All In</button>
+        </div>
+        <div class="check-btn">
+          <button type="submit" id="check-bt"> check</button>
+        </div>
+        <div class="fold-btn">
+          <button type="submit" id="fold-btn"> Fold</button>
+        </div>
+        <div class="call-btn">
+          <button type="submit" id="call-btn"> Call</button>
+        </div>
+        <div class="bet-btn">
+          <button type="submit" id="check-btn"> Bet</button>
+        </div>
+    </form>
+   
+
+</div>
+
+
+    <div class="game-log">
+    <!-- <div class="game-log-txt"></div> -->
+      <!-- <div class="game-log-txt-type"></div> -->
+    </div>
+    <!-- <div class="game-info"></div> -->
+  
+</div>
+

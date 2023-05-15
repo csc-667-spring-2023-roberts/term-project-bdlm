@@ -1,36 +1,45 @@
-
 const express = require("express");
 const bcrypt = require("bcrypt");
 const Users = require("../../db/users.js");
+const {
+  redirectIfAuthenticated,
+} = require("../../middleware/redirect-if-authenticated.js");
 
 const router = express.Router();
 
 const SALT_ROUNDS = 10;
 
-
-router.get("/sign-up", (_request, response) => {
-  response.render("sign-up", { title: "SIGN UP PAGE" });
+router.get("/register", (_request, response) => {
+  response.render("register", { title: "SIGN UP PAGE" });
 });
 
 router.post("/register", async (request, response) => {
-  const { username, email, password } = request.body;
+  const { username, email, password, firstname, lastname } = request.body;
 
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
   try {
-    const { id } = await Users.create(username, email, hash);
+    const { id } = await Users.create(
+      username,
+      email,
+      hash,
+      firstname,
+      lastname
+    );
     request.session.user = {
       id,
       username,
       email,
+      firstname,
+      lastname,
     };
 
     response.redirect("/lobby");
   } catch (error) {
     console.log({ error });
     response.render("register", {
-      title: "Jrob's Term Project",
+      title: "BDLM Term Project",
       username,
       email,
     });
@@ -42,19 +51,18 @@ router.get("/login", (_request, response) => {
 });
 
 router.post("/login", async (request, response) => {
-  const { email, password } = request.body;
+  const { username, password } = request.body;
 
   try {
-    const { id, username, password: hash } = await Users.findByEmail(email);
+    const { id, password: hash } = await Users.findByUsername(username);
     const isValidUser = await bcrypt.compare(password, hash);
 
+    console.log(isValidUser);
     if (isValidUser) {
       request.session.user = {
         id,
         username,
-        email,
       };
-
       response.redirect("/lobby");
     } else {
       throw "Credentials invalid";
@@ -62,7 +70,7 @@ router.post("/login", async (request, response) => {
   } catch (error) {
     console.log({ error });
 
-    response.render("login", { title: "Jrob's Term Project", email });
+    response.render("login", { title: "BDLM Term Project", username });
   }
 });
 

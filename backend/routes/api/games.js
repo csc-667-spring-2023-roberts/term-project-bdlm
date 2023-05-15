@@ -18,12 +18,16 @@ router.get("/", async (request, response) => {
   }
 });
 
-router.get("/create", async (request, response) => {
+router.post("/create", async (request, response) => {
   const { id: user_id } = request.session.user;
+  const { table_type_id } = request.body;
   const io = request.app.get("io");
 
   try {
-    const { id: game_id, created_at } = await Games.create(user_id);
+    const { id: game_id, created_at } = await Games.create(
+      user_id,
+      table_type_id
+    );
 
     io.emit(GAME_CREATED, { game_id, created_at });
     response.redirect(`/games/${game_id}`);
@@ -52,7 +56,7 @@ router.post("/:id/move", async (request, response) => {
   }
 });
 
-router.get("/:id/join", async (request, response) => {
+router.post("/:id/join", async (request, response) => {
   const { id: game_id } = request.params;
   const { id: user_id } = request.session.user;
   const io = request.app.get("io");
@@ -60,9 +64,11 @@ router.get("/:id/join", async (request, response) => {
   try {
     await Games.join(game_id, user_id);
 
-    const state = await Games.state(game_id, user_id);
-    io.emit(GAME_UPDATED(game_id), state);
-
+    /*
+      const state = await Games.state(game_id, user_id);
+      io.emit(GAME_UPDATED(game_id), state);
+      io.to(socket_id).emit(message_name, {})
+    */
     response.redirect(`/games/${game_id}`);
   } catch (error) {
     console.log({ error });
