@@ -1,14 +1,22 @@
 body {
-  background-color: rgba(0, 0, 0, 0.1);
-  background-image: url(../images/main_page_background.png);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: rgb(0, 0, 0);
+  /* background-image: url(../images/main_page_background.png); */
+  /* background-repeat: no-repeat;
+  background-size: 760px 700px;
+  background-position: center; */
 }
 
 h1 {
-  font-size: 50px;
+  font-size: 70px;
   color: white;
-  text-align: center;
+  /* text-align: center; */
+}
+path {
+  fill: transparent;
+}
+
+text {
+  fill: #d5a55d;
 }
 
 img {
@@ -16,25 +24,37 @@ img {
 }
 
 .container {
-  height: 200px;
+  height: 30px;
   position: relative;
 }
 
 .center {
   margin: 0;
   position: absolute;
-  top: 250%;
+  top: 0;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
 .block {
-  display: block;
+  /* display: block;
   width: 100%;
   border-radius: 8px;
-  padding: 14px 28px;
+  padding: 4px 8px;
   font-size: 28px;
+  color: white;
+  background-color: black;
   cursor: pointer;
-  text-align: center;
+  text-align: center; */
+  border-radius: 30px;
+  padding: 300px 300px;
+  background-color: rgb(0, 0, 0);
+  background-image: url(../images/main_page_background.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+button#Enter:hover {
+  background-color: goldenrod;
 }

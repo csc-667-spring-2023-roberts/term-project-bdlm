@@ -11,14 +11,14 @@
             <div class="col-sm">
 
               <h2>Join Betting Rollers</h2>
-              <% available_tables.forEach(table=> { %>
+              <!-- <% available_tables.forEach(table=> { %>
 
                 <form method="post" action="/api/games/<%= table.id %>/join">
                   <button type="submit" value="Join Game">
                     Join Game (<%= table.id %>)
                   </button>
                 </form>
-                <% }) %>
+                <% }) %> -->
 
                   <form method="post" action="/api/games/create">
                     <select name="table_type_id">

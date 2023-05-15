@@ -1,4 +1,5 @@
 const express = require("express");
+const { isAuthenticated } = require("../../middleware/is-authenticated.js");
 const Games = require("../../db/games");
 
 const router = express.Router();
