@@ -103,10 +103,16 @@ body,
 
 .check-btn {
   grid-area: check-btn;
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 .fold-btn {
   grid-area: fold-btn;
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 .call-btn {
@@ -155,7 +161,7 @@ body,
 }
 
 .grid-container *:after {
-  content: attr(class); /*makes classes show*/
+  /*makes classes show*/
   position: absolute;
   top: 0;
   left: 0;
