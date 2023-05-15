@@ -3,12 +3,6 @@
       606: (t) => {
         t.exports = { CHAT_MESSAGE_RECEIVED: "chat-message-received" };
       },
-      906: (t) => {
-        t.exports = {
-          GAME_CREATED: "game:created",
-          GAME_UPDATED: (t) => `game:${t}:updated`,
-        };
-      },
     },
     e = {};
   function s(n) {
@@ -219,14 +213,14 @@
         );
       }
       const v = m.setTimeout,
-        _ = m.clearTimeout;
-      function k(t, e) {
+        k = m.clearTimeout;
+      function w(t, e) {
         e.useNativeTimers
-          ? ((t.setTimeoutFn = v.bind(m)), (t.clearTimeoutFn = _.bind(m)))
+          ? ((t.setTimeoutFn = v.bind(m)), (t.clearTimeoutFn = k.bind(m)))
           : ((t.setTimeoutFn = m.setTimeout.bind(m)),
             (t.clearTimeoutFn = m.clearTimeout.bind(m)));
       }
-      class w extends Error {
+      class _ extends Error {
         constructor(t, e, s) {
           super(t),
             (this.description = e),
@@ -238,13 +232,13 @@
         constructor(t) {
           super(),
             (this.writable = !1),
-            k(this, t),
+            w(this, t),
             (this.opts = t),
             (this.query = t.query),
             (this.socket = t.socket);
         }
         onError(t, e, s) {
-          return super.emitReserved("error", new w(t, e, s)), this;
+          return super.emitReserved("error", new _(t, e, s)), this;
         }
         open() {
           return (this.readyState = "opening"), this.doOpen(), this;
@@ -326,11 +320,11 @@
           } catch (t) {}
       }
       function j() {}
-      const D = null != new P({ xdomain: !1 }).responseType;
-      class I extends g {
+      const I = null != new P({ xdomain: !1 }).responseType;
+      class D extends g {
         constructor(t, e) {
           super(),
-            k(this, e),
+            w(this, e),
             (this.opts = e),
             (this.method = e.method || "GET"),
             (this.uri = t),
@@ -391,7 +385,7 @@
             }, 0);
           }
           "undefined" != typeof document &&
-            ((this.index = I.requestsCount++), (I.requests[this.index] = this));
+            ((this.index = D.requestsCount++), (D.requests[this.index] = this));
         }
         onError(t) {
           this.emitReserved("error", t, this.xhr), this.cleanup(!0);
@@ -402,7 +396,7 @@
               try {
                 this.xhr.abort();
               } catch (t) {}
-            "undefined" != typeof document && delete I.requests[this.index],
+            "undefined" != typeof document && delete D.requests[this.index],
               (this.xhr = null);
           }
         }
@@ -418,11 +412,11 @@
         }
       }
       function M() {
-        for (let t in I.requests)
-          I.requests.hasOwnProperty(t) && I.requests[t].abort();
+        for (let t in D.requests)
+          D.requests.hasOwnProperty(t) && D.requests[t].abort();
       }
-      (I.requestsCount = 0),
-        (I.requests = {}),
+      (D.requestsCount = 0),
+        (D.requests = {}),
         "undefined" != typeof document &&
           ("function" == typeof attachEvent
             ? attachEvent("onunload", M)
@@ -555,7 +549,7 @@
                   (this.xs = t.secure !== e);
               }
               const e = t && t.forceBase64;
-              this.supportsBinary = D && !e;
+              this.supportsBinary = I && !e;
             }
             get name() {
               return "polling";
@@ -663,7 +657,7 @@
             request(t = {}) {
               return (
                 Object.assign(t, { xd: this.xd, xs: this.xs }, this.opts),
-                new I(this.uri(), t)
+                new D(this.uri(), t)
               );
             }
             doWrite(t, e) {
@@ -759,7 +753,7 @@
                 (e.port = t.port),
                 t.query && (e.query = t.query))
               : e.host && (e.hostname = z(e.host).host),
-            k(this, e),
+            w(this, e),
             (this.secure =
               null != e.secure
                 ? e.secure
@@ -1147,8 +1141,8 @@
         }
       }
       (W.protocol = 4), W.protocol;
-      const $ = "function" == typeof ArrayBuffer,
-        J = (t) =>
+      const J = "function" == typeof ArrayBuffer,
+        $ = (t) =>
           "function" == typeof ArrayBuffer.isView
             ? ArrayBuffer.isView(t)
             : t.buffer instanceof ArrayBuffer,
@@ -1163,7 +1157,7 @@
             "[object FileConstructor]" === Q.call(File));
       function Z(t) {
         return (
-          ($ && (t instanceof ArrayBuffer || J(t))) ||
+          (J && (t instanceof ArrayBuffer || $(t))) ||
           (X && t instanceof Blob) ||
           (G && t instanceof File)
         );
@@ -1765,7 +1759,7 @@
             e && "object" == typeof e && ((s = e), (e = void 0)),
             ((s = s || {}).path = s.path || "/socket.io"),
             (this.opts = s),
-            k(this, s),
+            w(this, s),
             this.reconnection(!1 !== s.reconnection),
             this.reconnectionAttempts(s.reconnectionAttempts || 1 / 0),
             this.reconnectionDelay(s.reconnectionDelay || 1e3),
@@ -2012,7 +2006,7 @@
       var mt = s(606),
         bt = s.n(mt);
       const vt = gt({ query: { path: window.location.pathname } }),
-        _t = document.querySelector("#messages");
+        kt = document.querySelector("#messages");
       vt.on(
         bt().CHAT_MESSAGE_RECEIVED,
         ({ username: t, message: e, timestamp: s }) => {
@@ -2022,7 +2016,7 @@
           const r = document.createElement("span");
           r.innerText = e;
           const o = document.createElement("span");
-          (o.innerText = s), n.append(i, r, o), _t.appendChild(n);
+          (o.innerText = s), n.append(i, r, o), kt.appendChild(n);
         }
       ),
         document
@@ -2037,9 +2031,5 @@
                 body: JSON.stringify({ message: e }),
               });
           });
-    })(),
-    (() => {
-      "use strict";
-      s(906);
     })();
 })();
