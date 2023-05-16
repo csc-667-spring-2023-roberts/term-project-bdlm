@@ -24,7 +24,9 @@ const createRoom = (match_type) =>
   ]);
 
 const checkRooms = (match_type) =>
-  db.any("SELECT COUNT(*) FROM tableroom r WHERE r.match_type=$1", [match_type]);
+  db.any("SELECT COUNT(*) FROM tableroom r WHERE r.match_type=$1", [
+    match_type,
+  ]);
 
 const createGameTable = (room_id, player_count) =>
   db.one("INSERT INTO gametable (room_id, player_count) VALUES ($1, $2)", [
@@ -70,11 +72,11 @@ const updatePlayerCards = (card_id, card_order, user_id) =>
   );
 
 // Gets list of players inside the table
-const getPlayersList = (table_id) =>
-  db.any(
-    "SELECT id, username FROM user u, players p WHERE p.table_id=$1 AND p.user_id=u.id",
-    [table_id]
-  );
+// const getPlayersList = (table_id) =>
+//   db.any(
+//     "SELECT id, username FROM user u, players p WHERE p.table_id=$1 AND p.user_id=u.id",
+//     [table_id]
+//   );
 
 const tableTypes = () => db.many("SELECT * FROM table_types");
 

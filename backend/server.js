@@ -15,7 +15,7 @@ const db = require("./db/connection.js");
 const homeRoutes = require("./routes/static/home.js");
 const authenticationRoutes = require("./routes/static/authentication.js");
 const lobbyRoutes = require("./routes/static/lobby.js");
-const tableroomRoutes = require("./routes/static/tableroom.js");
+// const tableroomRoutes = require("./routes/static/tableroom.js");
 const tableRoutes = require("./routes/static/table.js");
 const testRoutes = require("./routes/test/index.js");
 const chatRoutes = require("./routes/static/chat.js");
@@ -69,7 +69,7 @@ app.use("/lobby", isAuthenticated, lobbyRoutes);
 app.use("/authentication", authenticationRoutes);
 
 app.use("/games", isAuthenticated, gameTableRoutes);
-app.use("/tableroom", isAuthenticated, tableroomRoutes);
+// app.use("/tableroom", isAuthenticated, tableroomRoutes);
 app.use("/table", isAuthenticated, tableRoutes);
 app.use("/test", testRoutes);
 app.use("/chat", isAuthenticated, chatRoutes);
