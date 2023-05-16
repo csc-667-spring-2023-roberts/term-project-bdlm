@@ -10,7 +10,7 @@ exports.up = (pgm) => {
     room_id: {
       type: "integer",
       notNull: true,
-      references: "gameroom",
+      references: "tableroom",
       foreignKeys: "id",
     },
     // player_id: {

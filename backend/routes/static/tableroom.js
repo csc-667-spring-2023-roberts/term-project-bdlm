@@ -4,7 +4,7 @@ const Games = require("../../db/games");
 
 const router = express.Router();
 
-//need gameroom id separate from other id
+//need tableroom id separate from other id
 router.get("/:id", async (_request, response) => {
   const { id } = request.params;
   const { user_id } = request.session.user;

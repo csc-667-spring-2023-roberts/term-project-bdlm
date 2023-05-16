@@ -19,12 +19,14 @@ const { availableGames } = require("./games/available.js");
 */
 
 const createRoom = (match_type) =>
-  db.one("INSERT INTO gameroom (match_type) VALUES ($1) RETURNING id", [
+  db.one("INSERT INTO tableroom (match_type) VALUES ($1) RETURNING id", [
     match_type,
   ]);
 
 const checkRooms = (match_type) =>
-  db.any("SELECT COUNT(*) FROM gameroom r WHERE r.match_type=$1", [match_type]);
+  db.any("SELECT COUNT(*) FROM tableroom r WHERE r.match_type=$1", [
+    match_type,
+  ]);
 
 const createGameTable = (room_id, player_count) =>
   db.one("INSERT INTO gametable (room_id, player_count) VALUES ($1, $2)", [
