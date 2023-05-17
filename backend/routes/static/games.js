@@ -12,7 +12,7 @@ router.get("/:table_id", async (request, response) => {
     table_id,
     user_id,
     title: `Table ${table_id}`,
-    available_tables: await Games.availableGames(user_id),
+    tablePlayers: await Games.getPlayersList(table_id),
   });
 });
 

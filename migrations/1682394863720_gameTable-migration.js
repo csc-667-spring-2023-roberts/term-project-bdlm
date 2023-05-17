@@ -7,22 +7,15 @@ exports.shorthands = undefined;
 exports.up = pgm => {
     pgm.createTable("gametable", {
         id: "id",
-        room_id: {
-            type: "integer",
-            notNull: true,
-            references: "tableroom",
-            foreignKeys: "id"
-        },
-        // player_id: {
-        //     type: "integer",
-        //     notNull: true,
-        //     references: "players",
-        //     foreignKeys: "id"
-        // },
         player_count: {
             type: "integer",
             notNull: true,
-        }
+        },
+        created_at: {
+            type: "timestamp",
+            default: pgm.func("NOW()"),
+            notNull: true,
+        },
     }
 )};
   /**

@@ -4,14 +4,6 @@
   <body>
     <%-include('partials/game-table.ejs') %> 
     <%- include('partials/chat.ejs') %>
-
-    <div id="playerslist">
-      <label>List of Players</label>
-      <form method="post" action="/api/games/playersList">
-        <% tablePlayers.forEach(({ user_id })=> { %>
-          <label> <% user_id %></label>
-          <% }) %>
-      </form>
-    </div>
+    <%- include('partials/players.ejs') %>
   </body>
 </html>
