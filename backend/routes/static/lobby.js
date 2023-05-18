@@ -9,7 +9,6 @@ router.get("/", async (request, response) => {
 
   response.render("lobby", {
     title: "LOBBY",
-    table_types: await Games.tableTypes(),
     available_tables: await Games.availableGames(user_id),
   });
 });
