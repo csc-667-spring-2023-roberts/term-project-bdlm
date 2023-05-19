@@ -65,8 +65,10 @@ router.post("/:id/join", async (request, response) => {
   const io = request.app.get("io");
 
   try {
-    if (Games.full(table_id)) {
-      console.log("TABLE FULL");
+    const fullStatus = await Games.full(table_id);
+    console.log(fullStatus);
+    if (fullStatus) {
+      console.log("TABLE FULL " + table_id);
       response.redirect("/lobby");
     } else {
       await Games.join(table_id, user_id);

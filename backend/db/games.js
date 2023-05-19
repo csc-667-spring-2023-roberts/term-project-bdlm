@@ -19,12 +19,12 @@ const gameState = async (table_id, user_id) => {
   // players in the table
   // and turn order
   const player_data = await db.many(
-    "SELECT id, username, email, players.tableOrder FROM users, players WHERE players.user_id=users.id AND players.table_id=$1",
+    "SELECT id, username, email, players.table_order FROM users, players WHERE players.user_id=users.id AND players.table_id=$1",
     [table_id]
   );
   // cards in the players hands
   const hands_data = await db.many(
-    "SELECT card_id, cards FROM gamecards WHERE gamecards.table_id=$1 AND gamecards.user_id IN ($2:csv) AND cards.id=gamecards.card_id",
+    "SELECT player_cards FROM players WHERE players.table_id=$1 AND players.user_id=$2 AND players.user_id IN ($2:csv) AND cards.id=gamecards.card_id",
     [game_id, player_data.map((p) => p.id)]
   );
 
