@@ -1,8 +1,11 @@
 const { join } = require("./join.js");
 const db = require("../connection.js");
 
+const INIT_GAMEBOARD = "INSERT INTO gameboard (game_id) VALUES ($1)";
+
 const create = async (user_id) => {
   // Create the game table
+  // await db.none(INIT_GAMEBOARD, [id]);
   const { id: table_id, created_at } = await db.one(
     "INSERT INTO gametable (player_count) VALUES(0) RETURNING id, created_at"
   );

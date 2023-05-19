@@ -3,6 +3,8 @@ const db = require("./connection");
 const { create } = require("./games/create.js");
 const { join } = require("./games/join.js");
 const { availableGames } = require("./games/available.js");
+const CREATE_GAME_SQL =
+  "INSERT INTO games(closed, number_of_players) VALUES (false, 1) RETURNING id";
 
 const createPlayerCards = (card_id, user_id, card_order) =>
   db.one(
