@@ -57,7 +57,6 @@ router.post("/login", async (request, response) => {
     const { id, password: hash } = await Users.findByUsername(username);
     const isValidUser = await bcrypt.compare(password, hash);
 
-    console.log(isValidUser);
     if (isValidUser) {
       request.session.user = {
         id,
