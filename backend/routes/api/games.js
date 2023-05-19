@@ -41,12 +41,15 @@ router.post("/create", async (request, response) => {
 router.post("/:id/move", async (request, response) => {
   const { id: game_id } = request.params;
   const { id: user_id } = request.session.user;
-  const { x, y } = request.body;
+  // const { x, y } = request.body;
+
+  console.log("--- MOVE ---");
+  console.log(request.body);
   const io = request.app.get("io");
 
   try {
-    const state = await Games.isMoveValid(game_id, user_id, x, y);
-    io.emit(GAME_UPDATED(game_id), state);
+    // const state = await Games.isMoveValid(game_id, user_id, x, y);
+    // io.emit(GAME_UPDATED(game_id), state);
 
     response.status(200).send();
   } catch (error) {
@@ -57,19 +60,24 @@ router.post("/:id/move", async (request, response) => {
 });
 
 router.post("/:id/join", async (request, response) => {
-  const { id: game_id } = request.params;
+  const { id: table_id } = request.params;
   const { id: user_id } = request.session.user;
   const io = request.app.get("io");
 
   try {
-    await Games.join(game_id, user_id);
-
-    /*
+    if (Games.full(table_id)) {
+      console.log("TABLE FULL");
+      response.redirect("/lobby");
+    } else {
+      await Games.join(table_id, user_id);
+      /*
       const state = await Games.state(game_id, user_id);
       io.emit(GAME_UPDATED(game_id), state);
       io.to(socket_id).emit(message_name, {})
-    */
-    response.redirect(`/games/${game_id}`);
+      */
+
+      response.redirect(`/games/${table_id}`);
+    }
   } catch (error) {
     console.log({ error });
 
@@ -77,4 +85,19 @@ router.post("/:id/join", async (request, response) => {
   }
 });
 
+router.post("/:id/leave", async (request, response) => {
+  const { id: table_id } = request.params;
+  const { id: user_id } = request.session.user;
+  const io = request.app.get("io");
+
+  try {
+    await Games.leave(table_id, user_id);
+
+    response.redirect("/lobby");
+  } catch (error) {
+    console.log({ error });
+
+    response.status(500).send();
+  }
+});
 module.exports = router;
