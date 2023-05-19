@@ -40,6 +40,11 @@ const gameState = async (table_id, user_id) => {
     [game_id, player_data.map((p) => p.id)]
   );
 
+  console.log(player_data);
+  console.log(hands_data);
+  console.log(bet_data);
+  console.log(cash_data);
+
   return {
     table_id,
     player_data,
@@ -87,11 +92,11 @@ module.exports = {
   getPlayersList,
   drawCards,
   updateHand,
-  full,
+  gameState,
   // Sub module
   create,
+  full,
   join,
   availableGames,
-  gameState,
   leave,
 };
