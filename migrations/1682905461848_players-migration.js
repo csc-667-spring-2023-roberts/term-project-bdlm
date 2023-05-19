@@ -24,7 +24,10 @@ exports.up = pgm => {
             notNull: true,
             default: false
         },
-        tableOrder: {
+        player_cards: {
+            type: 'varchar[]'
+        },
+        table_order: {
             type:"integer",
             notNull: true
         },

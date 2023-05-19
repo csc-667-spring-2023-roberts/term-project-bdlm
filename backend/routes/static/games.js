@@ -7,6 +7,9 @@ router.get("/:table_id", async (request, response) => {
   const { id: user_id } = request.session.user;
   const { table_id } = request.params;
 
+  // if(Games.full(table_id)){
+  //   Games.drawCards(table_id);
+  // }
   // TODO Send game state to user
   response.render("table", {
     table_id,
@@ -15,5 +18,6 @@ router.get("/:table_id", async (request, response) => {
     tablePlayers: await Games.getPlayersList(table_id),
   });
 });
+
 
 module.exports = router;
