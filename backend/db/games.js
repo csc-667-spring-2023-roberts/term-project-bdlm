@@ -25,6 +25,29 @@ const getPlayersList = (table_id) =>
     [table_id]
   );
 
+const gameState = async (table_id, user_id) => {
+  // players in the table
+  // current player
+  // cards in the players hands
+  // next card in card order
+  // player bets
+  // player chips
+  // flop
+  // turn
+  // river
+
+  // "users" is all of the players at this table
+  // get username and user_id from gametable where user_name = gametable.user_id
+  // and gametable.tableid=$1 order by gametable.created_at
+  const users = await db.many("SELECT id FROM gametable", [table_id]);
+
+  return {
+    table_id,
+    users,
+    user_id,
+  };
+};
+
 module.exports = {
   createPlayerCards,
   updatePlayerCards,
