@@ -8,7 +8,7 @@ const leave = async (table_id, user_id) => {
   );
   await db.none(
     `UPDATE gametable
-    SET player_count = player_count - 1
+    SET player_count = (SELECT COUNT(*) FROM players WHERE table_id=$1)
     WHERE id=$1`,
     [table_id]
   );
