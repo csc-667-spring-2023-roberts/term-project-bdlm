@@ -33,30 +33,39 @@ const gameState = async (table_id, user_id) => {
   // players in the table
   // and turn order
   const player_data = await db.many(
-    "SELECT id, username, email, players.table_order FROM users, players WHERE players.user_id=users.id AND players.table_id=$1",
+    `SELECT id, username, email, p.table_order 
+    FROM users u, players p
+    WHERE p.user_id=u.id AND p.table_id=$1`,
     [table_id]
   );
+  console.log(player_data);
+
   // cards in the players hands
   const hands_data = await db.many(
-    "SELECT player_cards FROM players WHERE players.table_id=$1 AND players.user_id=$2 AND players.user_id IN ($2:csv) AND cards.id=gamecards.card_id",
-    [game_id, player_data.map((p) => p.id)]
+    `SELECT player_cards 
+    FROM players p 
+    WHERE p.table_id=$1 
+    AND p.user_id IN ($2:csv)`,
+    [table_id, player_data.map((p) => p.id)]
   );
+  console.log(hands_data);
 
   // all players bets
   const bet_data = await db.many(
     "SELECT bet FROM players WHERE players.table_id=$1 AND players.user_id IN ($2:csv)",
-    [game_id, player_data.map((p) => p.id)]
+    [table_id, player_data.map((p) => p.id)]
   );
+  console.log(bet_data);
 
   // all players cash
   const cash_data = await db.many(
-    "SELECT totalCash FROM players WHERE players.table_id=$1 AND players.user_id IN ($2:csv)",
-    [game_id, player_data.map((p) => p.id)]
+    `SELECT total_cash 
+    FROM users u, players p
+    WHERE p.user_id=u.id
+    AND p.table_id=$1 
+    AND p.user_id IN ($2:csv)`,
+    [table_id, player_data.map((p) => p.id)]
   );
-
-  console.log(player_data);
-  console.log(hands_data);
-  console.log(bet_data);
   console.log(cash_data);
 
   return {
