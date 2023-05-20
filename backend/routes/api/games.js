@@ -23,12 +23,12 @@ router.post("/create", async (request, response) => {
   const { table_type_id } = request.body;
   const io = request.app.get("io");
 
+  console.log("*** create game");
   try {
     const { id: game_id, created_at } = await Games.create(
       user_id,
       table_type_id
     );
-
     io.emit(GAME_CREATED, { game_id, created_at });
     response.redirect(`/games/${game_id}`);
   } catch (error) {
