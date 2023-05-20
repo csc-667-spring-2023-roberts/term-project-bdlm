@@ -11,7 +11,7 @@ const initSockets = (app, sessionMiddleware) => {
 
   io.on("connection", async (socket) => {
     const { id: socket_id } = socket;
-    console.log(socket.request.session);
+    console.log(socket.request.session.user);
 
     if (socket.request.session.user !== undefined) {
       const { id: user_id } = socket.request.session.user;
