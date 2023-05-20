@@ -7,7 +7,7 @@ const join = async (table_id, user_id, is_current = false) => {
       [table_id, user_id]
     );
   } catch (error) {
-    console.log("Player not in table.");
+    console.log("Player " + user_id + " is not in table");
 
     await db.none(
       `INSERT INTO players 
@@ -26,7 +26,7 @@ const join = async (table_id, user_id, is_current = false) => {
     return;
   }
 
-  console.log("You are already in this game");
+  console.log("User: " + user_id + " is already in this table");
   return;
 };
 module.exports = { join };
