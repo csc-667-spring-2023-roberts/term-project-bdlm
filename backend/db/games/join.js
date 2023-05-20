@@ -3,7 +3,7 @@ const db = require("../connection.js");
 const join = async (table_id, user_id, is_current = false) => {
   await db.none(
     `INSERT INTO players 
-    (user_id, table_id, current, "tableOrder", bet) 
+    (user_id, table_id, current, "table_order", bet) 
     SELECT $1, $2, $3, count(*) + 1, 0 FROM players 
     WHERE table_id=$2 `,
     [user_id, table_id, is_current]

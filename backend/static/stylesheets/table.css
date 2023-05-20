@@ -136,7 +136,6 @@ body,
 }
 
 .grid-container *:after {
-  /*makes classes show*/
   position: absolute;
   top: 0;
   left: 0;
