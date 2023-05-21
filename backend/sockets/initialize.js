@@ -24,7 +24,7 @@ const initSockets = (app, sessionMiddleware) => {
       }
       // Sockets.store(user_id, socket_id, table_id);
     }
-    
+
     socket.on("disconnect", () => {
       Sockets.remove(socket_id);
     });

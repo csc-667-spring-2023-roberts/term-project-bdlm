@@ -15,20 +15,13 @@
 
                 <form method="post" action="/api/games/<%= table.id %>/join">
                   <button type="submit" value="Join Game">
-                    Join Game Room #<%= table.id %>
+                    Join Game Room #<%= table.id %>  (<%= table.player_count %> / 4)
                   </button>
                 </form>
                 <% }) %>
 
                   <form method="post" action="/api/games/create">
-                    <select name="table_type_id">
-                      <% table_types.forEach(({ id, small_blind, big_blind })=> { %>
-                        <option value="<%= id %>">
-                          <%= small_blind %>/<%= big_blind %>
-                        </option>
-                        <% }) %>
-                    </select>
-                    <button type="submit" value="Enter Room">Enter Room</button>
+                    <button type="submit" value="Create New Table">Create New Table</button>
                   </form>
 
             </div>
