@@ -22,6 +22,7 @@ router.post("/create", async (request, response) => {
   const { id: user_id } = request.session.user;
   const io = request.app.get("io");
 
+  console.log("*** create game");
   try {
     const { id: table_id, created_at } = await Games.create(user_id);
 
@@ -64,19 +65,18 @@ router.post("/:id/join", async (request, response) => {
   try {
     const fullStatus = await Games.full(table_id);
     console.log("Full Status: ", fullStatus);
-``
+    ``;
     if (fullStatus) {
       console.log("TABLE FULL " + table_id);
 
       response.redirect("/lobby");
     } else {
-
       await Games.join(table_id, user_id);
-    
+
       const state = await Games.gameState(table_id, user_id);
       io.emit(GAME_UPDATED(table_id), state);
       // io.to(socket_id).emit(message_name, {})
-      io.to(socket_id).emit("GAME UPDATE", {state});
+      io.to(socket_id).emit("GAME UPDATE", { state });
       response.redirect(`/games/${table_id}`);
     }
   } catch (error) {

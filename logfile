@@ -1,0 +1,40 @@
+2023-04-29 21:42:58.981 PDT [5917] LOG:  starting PostgreSQL 14.7 (Homebrew) on x86_64-apple-darwin22.1.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.202), 64-bit
+2023-04-29 21:42:58.983 PDT [5917] LOG:  listening on IPv6 address "::1", port 5432
+2023-04-29 21:42:58.983 PDT [5917] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-04-29 21:42:58.984 PDT [5917] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-04-29 21:42:58.986 PDT [5918] LOG:  database system was shut down at 2023-04-29 21:42:49 PDT
+2023-04-29 21:42:58.989 PDT [5917] LOG:  database system is ready to accept connections
+2023-04-29 21:46:35.994 PDT [6326] FATAL:  database "texas-hold-em" does not exist
+2023-04-29 21:49:11.162 PDT [6434] ERROR:  relation "session" does not exist at character 13
+2023-04-29 21:49:11.162 PDT [6434] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682830152)
+2023-04-29 22:02:01.223 PDT [6746] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:02:01.223 PDT [6746] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682830922)
+2023-04-29 22:02:07.261 PDT [6777] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:02:07.261 PDT [6777] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682830928)
+2023-04-29 22:04:51.725 PDT [6842] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:04:51.725 PDT [6842] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682831092)
+2023-04-29 22:07:58.223 PDT [7007] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:07:58.223 PDT [7007] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682831279)
+2023-04-29 22:08:07.694 PDT [7043] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:08:07.694 PDT [7043] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682831288)
+2023-04-29 22:11:00.138 PDT [7235] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:11:00.138 PDT [7235] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682831461)
+2023-04-29 22:39:07.318 PDT [8285] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:39:07.318 PDT [8285] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682833148)
+2023-04-29 22:48:52.651 PDT [8879] FATAL:  database "database-name" does not exist
+2023-04-29 22:58:43.917 PDT [9112] ERROR:  relation "session" does not exist at character 13
+2023-04-29 22:58:43.917 PDT [9112] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682834324)
+2023-04-29 23:02:01.050 PDT [9192] ERROR:  relation "session" does not exist at character 13
+2023-04-29 23:02:01.050 PDT [9192] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682834522)
+2023-04-29 23:02:22.850 PDT [9229] ERROR:  relation "session" does not exist at character 13
+2023-04-29 23:02:22.850 PDT [9229] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682834543)
+2023-04-30 20:33:08.150 PDT [12346] ERROR:  syntax error at or near "*" at character 6
+2023-04-30 20:33:08.150 PDT [12346] STATEMENT:  show * from session;
+2023-04-30 21:01:00.732 PDT [12936] ERROR:  relation "user" does not exist
+2023-04-30 21:01:00.732 PDT [12936] STATEMENT:  CREATE TABLE "liveChat" (
+	  "id" serial PRIMARY KEY,
+	  "userId" integer NOT NULL REFERENCES "user",
+	  "messages" varchar(256)
+	);
+2023-04-30 21:04:15.782 PDT [13105] ERROR:  relation "session" does not exist at character 13
+2023-04-30 21:04:15.782 PDT [13105] STATEMENT:  DELETE FROM "session" WHERE expire < to_timestamp(1682913856)
