@@ -81,4 +81,11 @@ router.get("/logout", (request, response) => {
   response.redirect("/");
 });
 
+//change
+router.post("/user", (request, response) => {
+  const { id } = request.session.user;
+
+  response.json({ id });
+});
+
 module.exports = router;

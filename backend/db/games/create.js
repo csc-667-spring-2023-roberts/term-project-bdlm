@@ -1,7 +1,7 @@
 const { join } = require("./join.js");
 const db = require("../connection.js");
 
-const INIT_GAMEBOARD = "INSERT INTO gameboard (game_id) VALUES ($1)";
+const INIT_GAMEBOARD = "INSERT INTO gameboard (table_id) VALUES ($1)";
 
 const create = async (user_id) => {
   // Create the game table

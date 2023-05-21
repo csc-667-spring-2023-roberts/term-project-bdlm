@@ -1,6 +1,6 @@
 const db = require("./connection.js");
 
-const create = (message, sender_id) =>
+const create = (message, sender_id, created_at) =>
   db.one(
     "INSERT INTO livechat (user_id, message) VALUES ($1, $2) RETURNING created_at",
     [sender_id, message]

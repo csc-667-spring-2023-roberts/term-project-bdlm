@@ -4,9 +4,11 @@
     <title><%= title %></title>
     <!-- <script src="/scripts/bundle.js"></script> -->
     <link rel="stylesheet" href="/stylesheets/table.css" />
-    <script src="/scripts/games.js"></script>
+    <script src="/scripts/index.js" defer></script>
+    <script src="/scripts/games/index.js" defer></script>
+    <!-- <script src="/scripts/games.js"></script> -->
   </head>
-
+  
   <body>
       Game Table ID: <%= table_id %> User ID: <%= user_id %>
   </body>
@@ -50,7 +52,15 @@
         <button type="submit" id="check-btn"> Bet</button>
       </div>
   </form>
+  
 
+  <template id="chat-message-template" value="<%= table_id %>"">
+    <div>
+      <span class="username"></span>
+      <span class="message"></span>
+      <span class="timestamp"></span>
+    </div>
+  </template>
     <div class="game-log">
     <!-- <div class="game-log-txt"></div> -->
       <!-- <div class="game-log-txt-type"></div> -->
