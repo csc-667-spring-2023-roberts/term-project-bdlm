@@ -76,7 +76,7 @@ router.post("/:id/join", async (request, response) => {
       const state = await Games.gameState(table_id, user_id);
       io.emit(GAME_UPDATED(table_id), state);
       // io.to(socket_id).emit(message_name, {})
-    
+      io.to(socket_id).emit("GAME UPDATE", {state});
       response.redirect(`/games/${table_id}`);
     }
   } catch (error) {

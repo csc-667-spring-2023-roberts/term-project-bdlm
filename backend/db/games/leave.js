@@ -12,5 +12,6 @@ const leave = async (table_id, user_id) => {
     WHERE id=$1`,
     [table_id]
   );
+  
 };
 module.exports = { leave };
