@@ -5,7 +5,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "backend", "static", "scripts"),
     publicPath: "/backend/static/scripts",
-    filename: "bundle.js",
+    filename: "[bundle].js",
   },
   mode: "production",
   module: {

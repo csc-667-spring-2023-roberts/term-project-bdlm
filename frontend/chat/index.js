@@ -1,34 +1,33 @@
-// import socket from "../common";
-// import events from "../../shared/constants";
+//change
+import io from "socket.io-client";
+import { getGameId } from "../util/game-id";
+import { GAMES } from "../../constants/events";
 
-// const messageContainer = document.querySelector("#messages");
+const socket = io();
 
-// socket.on(events.CHAT_MESSAGE_RECEIVED, ({ username, message, timestamp }) => {
-//   const entry = document.createElement("div");
+const userTemplate = document.querySelector("#user-template");
+const users = document.querySelector("#users");
 
-//   const displayName = document.createElement("span");
-//   displayName.innerText = username;
-//   const displayMessage = document.createElement("span");
-//   displayMessage.innerText = message;
-//   const displayTimestamp = document.createElement("span");
-//   displayTimestamp.innerText = timestamp;
+const table_id = getGameId(document.location.pathname);
 
-//   entry.append(displayName, displayMessage, displayTimestamp);
+socket.on(GAMES.PLAYER_JOINED(table_id), ({ username }) => {
+  const user = userTemplate.content.cloneNode(true);
 
-//   messageContainer.appendChild(entry);
-// });
+  user.querySelector("span.username").innerText = username;
 
-// document.querySelector("#chatMessage").addEventListener("keydown", (event) => {
-//   if (event.keyCode !== 13) {
-//     return;
-//   }
+  users.appendChild(user);
+});
 
-//   const message = event.target.value;
-//   event.target.value = "";
-
-//   fetch("/chat/0", {
-//     method: "post",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ message }),
-//   });
-// });
+fetch("/authentication/user", {
+  method: "post",
+})
+  .then((r) => r.json())
+  .then(({ id: user_id }) => {
+    console.log({ user_id });
+    socket.on(
+      GAMES.GAME_STATE_UPDATED(table_id, user_id),
+      async (game_state) => {
+        console.log({ game_state });
+      }
+    );
+  });
