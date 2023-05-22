@@ -14,7 +14,7 @@ router.post("/:id", async (request, response) => {
   io.emit(events.CHAT_MESSAGE_RECEIVED, {
     message,
     username,
-    timestamp,
+    timestamp: Date.now(),
   });
 
   response.status(200);

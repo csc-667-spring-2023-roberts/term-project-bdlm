@@ -1,6 +1,11 @@
 const express = require("express");
 const Games = require("../../db/games.js");
-const { GAME_CREATED, GAME_UPDATED } = require("../../../shared/constants.js");
+const {
+  GAME_CREATED,
+  MAX_PLAYERS,
+  GAME_STARTING,
+  GAME_UPDATED,
+} = require("../../../shared/constants.js");
 
 const router = express.Router();
 
@@ -22,6 +27,7 @@ router.post("/create", async (request, response) => {
   const { id: user_id } = request.session.user;
   const io = request.app.get("io");
 
+  console.log("*** create game");
   try {
     const { id: table_id, created_at } = await Games.create(user_id);
 
@@ -45,7 +51,8 @@ router.post("/:id/move", async (request, response) => {
   const io = request.app.get("io");
 
   try {
-    // const state = await Games.isMoveValid(game_id, user_id, x, y);
+    // const valid = await Games.isMoveValid(game_id, user_id, x, y);
+    //const state = await Games.gameState(table_id, user_id);
     // io.emit(GAME_UPDATED(game_id), state);
 
     response.status(200).send();
@@ -64,19 +71,18 @@ router.post("/:id/join", async (request, response) => {
   try {
     const fullStatus = await Games.full(table_id);
     console.log("Full Status: ", fullStatus);
-``
+    ``;
     if (fullStatus) {
       console.log("TABLE FULL " + table_id);
 
       response.redirect("/lobby");
     } else {
-
       await Games.join(table_id, user_id);
-    
+
       const state = await Games.gameState(table_id, user_id);
       io.emit(GAME_UPDATED(table_id), state);
       // io.to(socket_id).emit(message_name, {})
-    
+      // io.to(socket_id).emit("GAME UPDATE", { state });
       response.redirect(`/games/${table_id}`);
     }
   } catch (error) {
@@ -101,6 +107,7 @@ router.post("/:id/leave", async (request, response) => {
   } catch (error) {
     console.log({ error });
 
+    response.redirect("/lobby");
     response.status(500).send();
   }
 });

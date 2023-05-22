@@ -5,19 +5,11 @@ exports.shorthands = undefined;
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
  */
 exports.up = (pgm) => {
-  pgm.createTable("gametable", {
+  pgm.createTable("gameroom", {
     id: "id",
-    player_count: {
-      type: "integer",
+    match_type: {
+      type: "varchar(256)",
       notNull: true,
-    },
-    created_at: {
-      type: "timestamp",
-      default: pgm.func("NOW()"),
-      notNull: true,
-    },
-    community_cards: {
-      type: "varchar[]",
     },
   });
 };
@@ -25,5 +17,5 @@ exports.up = (pgm) => {
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm
  */
 exports.down = (pgm) => {
-  pgm.dropTable("gametable");
+  pgm.dropTable("gameroom");
 };

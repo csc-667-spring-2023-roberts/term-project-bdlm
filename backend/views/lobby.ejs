@@ -2,7 +2,8 @@
 <%- include('partials/head.ejs') %>
 
 <head>
-  <link href="/stylesheets/lobby.css" rel="stylesheet" type="text/css">
+  <link href="../../stylesheets/lobby.css" rel="stylesheet" type="text/css">
+ 
 </head>  
 <body>
     <%- include('partials/authenticated_nav.ejs') %>
@@ -27,17 +28,13 @@
             </div>
 
             <div class="grid-container">
-              <label>Chat with other players!</label>
-              <br>
+         
               <div class="col-sm">
-                <div id="chat-container">
-                  <div id="messages"></div>
+                
                   <label>
-                    <br>
-                    <input id="chatMessage" name="chat-message" placeholder="Message..." />
+                    <%- include('partials/chat.ejs') %>
                   </label>
-                </div>
-              </div>
+
             </div>
 
           </div>

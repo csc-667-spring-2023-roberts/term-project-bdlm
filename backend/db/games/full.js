@@ -5,7 +5,6 @@ const full = async (table_id) => {
     `SELECT player_count FROM gametable g WHERE g.id=$1`,
     [table_id]
   );
-  console.log("player count " + player_count);
 
   if (player_count >= 4) {
     return true;
