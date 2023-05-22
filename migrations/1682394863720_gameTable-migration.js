@@ -16,6 +16,9 @@ exports.up = (pgm) => {
       default: pgm.func("NOW()"),
       notNull: true,
     },
+    community_cards: {
+      type: "varchar[]"
+    },
   });
 };
 /**
