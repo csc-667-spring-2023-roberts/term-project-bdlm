@@ -1,8 +1,7 @@
 const http = require("http");
 const { Server } = require("socket.io");
-
 const initSockets = (app, sessionMiddleware) => {
-  const Sockets = require("../db/sockets.js");
+  const Sockets = require("../db/sockets");
 
   const server = http.createServer(app);
   const io = new Server(server);
@@ -23,13 +22,14 @@ const initSockets = (app, sessionMiddleware) => {
       table_id = parseInt(table_id.substring(table_id.lastIndexOf("/") + 1));
     }
 
-    Sockets.add(table_id, user_id, socket.id);
+    //const store = (user_id, socket_id, table_id = 0)
+    Sockets.store(user_id, socket.id, table_id);
 
-    if (table_id !== 0) {
-      Games.state(table_id).then(({ lookup }) => {
-        socket.emit(GAME_UPDATED, lookup(user_id));
-      });
-    }
+    // if (table_id !== 0) {
+    //   Games.state(table_id).then(({ lookup }) => {
+    //     socket.emit(GAME_UPDATED, lookup(user_id));
+    //   });
+    // }
   });
   app.set("io", io);
 
