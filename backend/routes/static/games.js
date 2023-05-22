@@ -10,10 +10,10 @@ router.get("/:table_id", async (request, response) => {
   const io = request.app.get("io");
   
   try {
-    await Games.start(table_id, user_id);
+    await Games.start(table_id);
 
-    const state = await Games.gameState(table_id, user_id);
-    io.emit(GAME_UPDATED(table_id), state);
+    const length = await Games.getCommCardsLength(table_id);
+
 
     // TODO Send game state to user
     response.render("table", {

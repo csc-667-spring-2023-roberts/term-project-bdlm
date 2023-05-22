@@ -53,7 +53,7 @@ router.post("/:id/move", async (request, response) => {
     //const state = await Games.gameState(table_id, user_id);
     // io.emit(GAME_UPDATED(game_id), state);
 
-    response.redirect(`/games/${table_id}`);
+    console.log("BUTTON: ", request.body);
   } catch (error) {
     console.log({ error });
 

@@ -17,11 +17,7 @@ exports.up = (pgm) => {
       notNull: true,
     },
     community_cards: {
-<<<<<<< HEAD
       type: "varchar[]"
-=======
-      type: "varchar[]",
->>>>>>> 2fc5fecc44f032ae5ef3dae3752e1240864b7d02
     },
   });
 };
