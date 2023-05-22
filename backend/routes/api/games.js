@@ -52,7 +52,7 @@ router.post("/:id/move", async (request, response) => {
 
   try {
     // const valid = await Games.isMoveValid(game_id, user_id, x, y);
-    //const state = await Games.gameState(table_id, user_id);
+    // const state = await Games.gameState(table_id, user_id);
     // io.emit(GAME_UPDATED(game_id), state);
 
     response.status(200).send();

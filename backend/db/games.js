@@ -40,6 +40,11 @@ const gameState = async (table_id, user_id) => {
   );
   console.log(player_data);
 
+  const connections = await db.any(
+    "SELECT * FROM user_sockets WHERE table_id=$1 AND user_id IN ($2:csv)",
+    [table_id, players.map((p) => p.id)]
+  );
+
   // cards in the players hands
   const hands_data = await db.many(
     `SELECT player_cards 
@@ -50,12 +55,26 @@ const gameState = async (table_id, user_id) => {
   );
   console.log(hands_data);
 
+  const hands = hands_data.reduce((memo, card) => {
+    memo[card.user_id] = memo[card.user_id] || [];
+    memo[card.user_id].push(card);
+
+    return memo;
+  }, {});
+
   // all players bets
   const bet_data = await db.many(
     "SELECT bet FROM players WHERE players.table_id=$1 AND players.user_id IN ($2:csv)",
     [table_id, player_data.map((p) => p.id)]
   );
   console.log(bet_data);
+
+  const bets = bet_data.reduce((memo, bet) => {
+    memo[bet.user_id] = memo[bet.user_id] || [];
+    memo[bet.user_id].push(bet);
+
+    return memo;
+  }, {});
 
   // all players cash
   const cash_data = await db.many(
@@ -68,6 +87,13 @@ const gameState = async (table_id, user_id) => {
   );
   console.log(cash_data);
 
+  const cashM = hands_data.reduce((memo, cash) => {
+    memo[cash.user_id] = memo[cash.user_id] || [];
+    memo[cash.user_id].push(cash);
+
+    return memo;
+  }, {});
+
   // array of community cards
   const community_cards = await db.one(
     "SELECT community_cards FROM gametable t WHERE t.id=$1",
@@ -76,12 +102,21 @@ const gameState = async (table_id, user_id) => {
   console.log(community_cards);
 
   return {
-    table_id,
-    player_data,
-    hands_data,
-    bet_data,
-    cash_data,
-    community_cards,
+    lookup: (user_id) => ({
+      table_id,
+      me: user_id,
+      connection: connections.find(
+        (connection) => connection.user_id === user_id
+      ),
+      players: player_data.map((player) => ({
+        me: player.user_id === user_id,
+      })),
+      hand: hands[user_id],
+      bet_data: bets[user_id],
+      cash_data: cashM[user_id],
+      community_cards,
+    }),
+    connections,
   };
 };
 

@@ -1,5 +1,6 @@
 const http = require("http");
 const { Server } = require("socket.io");
+const Games = require("../db/games.js");
 const initSockets = (app, sessionMiddleware) => {
   const Sockets = require("../db/sockets");
 
@@ -25,11 +26,11 @@ const initSockets = (app, sessionMiddleware) => {
     //const store = (user_id, socket_id, table_id = 0)
     Sockets.store(user_id, socket.id, table_id);
 
-    // if (table_id !== 0) {
-    //   Games.state(table_id).then(({ lookup }) => {
-    //     socket.emit(GAME_UPDATED, lookup(user_id));
-    //   });
-    // }
+    if (table_id !== 0) {
+      Games.gameState(table_id).then(({ lookup }) => {
+        socket.emit(GAME_UPDATED, lookup(user_id));
+      });
+    }
   });
   app.set("io", io);
 
