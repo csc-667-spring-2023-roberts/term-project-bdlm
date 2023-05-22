@@ -54,31 +54,21 @@ const gameState = async (table_id, user_id) => {
   );
   console.log(cash_data);
 
+  // array of community cards
+  const community_cards = await db.one(
+    "SELECT community_cards FROM gametable t WHERE t.id=$1",
+    [table_id]
+  );
+  console.log(community_cards);
+
   return {
     table_id,
     player_data,
     hands_data,
     bet_data,
     cash_data,
+    community_cards,
   };
-
-  // next card in card order
-  // flop
-  // turn
-  // river
-
-  // "users" is all of the players at this table
-  // get username and user_id from gametable where user_name = gametable.user_id
-  // and gametable.tableid=$1 order by gametable.created_at
-  /*
-  const users = await db.many("SELECT id FROM gametable", [table_id]);
-
-  return {
-    table_id,
-    users,
-    user_id,
-  };
-  */
 };
 
 const drawCards = async (table_id, count) => {

@@ -49,7 +49,8 @@ router.post("/:id/move", async (request, response) => {
   const io = request.app.get("io");
 
   try {
-    // const state = await Games.isMoveValid(game_id, user_id, x, y);
+    // const valid = await Games.isMoveValid(game_id, user_id, x, y);
+    //const state = await Games.gameState(table_id, user_id);
     // io.emit(GAME_UPDATED(game_id), state);
 
     response.redirect(`/games/${table_id}`);
@@ -105,6 +106,7 @@ router.post("/:id/leave", async (request, response) => {
   } catch (error) {
     console.log({ error });
 
+    response.redirect("/lobby");
     response.status(500).send();
   }
 });
