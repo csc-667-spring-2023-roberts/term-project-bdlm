@@ -1,37 +1,44 @@
 <html>
-<!--  -->
+  <head>
+    <link href="/stylesheets/login.css" rel="stylesheet" type="text/css">
 
-<head>
-    <title>
-        <%= title %>
-    </title>
-    <script src="/scripts/bundle.js"></script>
-    <link rel="stylesheet" href="/stylesheets/home.css" />
-</head>
+  </head>
+  <%- include('partials/head.ejs') %>
+    <%- include('partials/unauthenticated-nav.ejs') %>
 
-<body>
-    <h1> Login Page (unauthenticated)</h1>
-    <ul>
-        <li><a href="/lobby">Lobby</a></li>
-        <li><a href="/authentication/login">Login</a></li>
-        <li><a href="/">Home</a></li>
-        <li><a href="/authentication/sign-up">Sign Up</a></li>
-    </ul>
-    <form method="post" action="/authentication/login">
-        <label>
-          <em>Email</em>
-          <input name="email" autocomplete="email" />
-        </label>
-        <label>
-          <em>Password</em>
-          <input
-            name="password"
-            type="password"
-            autocomplete="current-password"
-          />
-        </label>
-        <input type="submit" value="Login" />
-      </form>
-</body>
+      <body>
+        <div class="grid-container">
+          <div class="container">
+
+            <h1> Login</h1>
+
+            <form method="post" action="/authentication/login">
+              <div class="row">
+                <div class="col-sm">
+                  <div class="ms-form-group">
+                    <label><i class="far fa-envelope-open"></i> Username</label>
+                    <input name="username" autocomplete="username" placeholder="Username" />
+                  </div>
+                </div>
+
+                <div class="col-sm">
+                  <div class="ms-form-group">
+                    <label><i class="far fa-key"></i> Password</label>
+                    <input name="password" type="password" placeholder="Password" autocomplete="current-password" />
+                  </div>
+                </div>
+                <br>
+                <div>
+                  <input type="submit" value="Login" class="ms-btn ms-primary ms-fullwidth" />
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </body>
 
 </html>

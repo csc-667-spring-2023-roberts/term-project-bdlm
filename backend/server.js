@@ -14,13 +14,15 @@ const db = require("./db/connection.js");
 
 const homeRoutes = require("./routes/static/home.js");
 const authenticationRoutes = require("./routes/static/authentication.js");
-const gameroomRoutes = require("./routes/static/gameroom.js");
-const tableRoutes = require("./routes/static/table.js");
-// const tableroomRoutes = require("./routes/static/tableroom.js");
-// const userhomeRoutes = require("./routes/static/userhome.js");
+const lobbyRoutes = require("./routes/static/lobby.js");
+// // const tableroomRoutes = require("./routes/static/tableroom.js");
+// const tableRoutes = require("./routes/static/table.js");
 const testRoutes = require("./routes/test/index.js");
 const chatRoutes = require("./routes/static/chat.js");
 const apiGamesRoutes = require("./routes/api/games.js");
+const gameTableRoutes = require("./routes/static/games.js");
+const playerMoveRoutes = require("./routes/api/player-move.js");
+
 const app = express();
 
 app.use(morgan("dev"));
@@ -33,7 +35,7 @@ if (process.env.NODE_ENV === "development") {
   const connectLiveReload = require("connect-livereload");
 
   const liveReloadServer = livereload.createServer();
-  liveReloadServer.watch(path.join(__dirname, "backend", "static"));
+  liveReloadServer.watch(path.join(__dirname, "static"));
   liveReloadServer.server.once("connection", () => {
     setTimeout(() => {
       liveReloadServer.refresh("/");
@@ -48,7 +50,7 @@ const sessionMiddleware = session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 * 3 },
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 },
 });
 
 app.use(sessionMiddleware);
@@ -63,14 +65,16 @@ app.use(express.static(path.join(__dirname, "static")));
 app.use(addSessionLocals);
 
 app.use("/", homeRoutes);
+app.use("/lobby", isAuthenticated, lobbyRoutes);
 app.use("/authentication", authenticationRoutes);
-app.use("/gameroom", isAuthenticated, gameroomRoutes);
-// app.use("/tableroom", tableroomRoutes);
-app.use("/table", tableRoutes);
-// app.use("/userhome", userhomeRoutes);
+
+app.use("/games", isAuthenticated, gameTableRoutes);
+// app.use("/tableroom", isAuthenticated, tableroomRoutes);
+// app.use("/table", isAuthenticated, tableRoutes);
 app.use("/test", testRoutes);
-app.use("/chat", chatRoutes);
+app.use("/chat", isAuthenticated, chatRoutes);
 app.use("/api/games", isAuthenticated, apiGamesRoutes);
+app.use("/api/player-move", isAuthenticated, playerMoveRoutes);
 
 server.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

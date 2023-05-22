@@ -9,36 +9,36 @@ const router = express.Router();
 
 const SALT_ROUNDS = 10;
 
-router.get("/sign-up", (_request, response) => {
-  response.render("sign-up", { title: "SIGN UP PAGE" });
+router.get("/register", (_request, response) => {
+  response.render("register", { title: "SIGN UP PAGE" });
 });
 
 router.post("/register", async (request, response) => {
-  const { firstname, lastname, username, email, password } = request.body;
+  const { username, email, password, firstname, lastname } = request.body;
 
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
   try {
     const { id } = await Users.create(
-      firstname,
-      lastname,
       username,
       email,
-      hash
+      hash,
+      firstname,
+      lastname
     );
     request.session.user = {
       id,
-      firstname,
-      lastname,
       username,
       email,
+      firstname,
+      lastname,
     };
 
     response.redirect("/lobby");
   } catch (error) {
     console.log({ error });
-    response.render("sign-up", {
+    response.render("register", {
       title: "BDLM Term Project",
       username,
       email,
@@ -54,16 +54,14 @@ router.post("/login", async (request, response) => {
   const { username, password } = request.body;
 
   try {
-    const { id, username, password: hash } = await Users.findByEmail(email);
+    const { id, password: hash } = await Users.findByUsername(username);
     const isValidUser = await bcrypt.compare(password, hash);
 
     if (isValidUser) {
       request.session.user = {
         id,
         username,
-        email,
       };
-
       response.redirect("/lobby");
     } else {
       throw "Credentials invalid";
@@ -71,7 +69,7 @@ router.post("/login", async (request, response) => {
   } catch (error) {
     console.log({ error });
 
-    response.render("login", { title: "BDLM Term Project", email });
+    response.render("login", { title: "BDLM Term Project", username });
   }
 });
 
@@ -81,6 +79,13 @@ router.get("/logout", (request, response) => {
   });
 
   response.redirect("/");
+});
+
+//change
+router.post("/user", (request, response) => {
+  const { id } = request.session.user;
+
+  response.json({ id });
 });
 
 module.exports = router;
