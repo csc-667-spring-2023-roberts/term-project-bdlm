@@ -46,8 +46,6 @@ router.post("/:id/move", async (request, response) => {
   const { id: user_id } = request.session.user;
   // const { x, y } = request.body;
 
-  console.log("--- MOVE ---");
-  console.log(request.body);
   const io = request.app.get("io");
 
   try {
@@ -55,7 +53,7 @@ router.post("/:id/move", async (request, response) => {
     // const state = await Games.gameState(table_id, user_id);
     // io.emit(GAME_UPDATED(game_id), state);
 
-    response.status(200).send();
+    console.log("BUTTON: ", request.body);
   } catch (error) {
     console.log({ error });
 
@@ -71,7 +69,7 @@ router.post("/:id/join", async (request, response) => {
   try {
     const fullStatus = await Games.full(table_id);
     console.log("Full Status: ", fullStatus);
-    ``;
+
     if (fullStatus) {
       console.log("TABLE FULL " + table_id);
 
@@ -81,6 +79,7 @@ router.post("/:id/join", async (request, response) => {
 
       const state = await Games.gameState(table_id, user_id);
       io.emit(GAME_UPDATED(table_id), state);
+      
       // io.to(socket_id).emit(message_name, {})
       // io.to(socket_id).emit("GAME UPDATE", { state });
       response.redirect(`/games/${table_id}`);
