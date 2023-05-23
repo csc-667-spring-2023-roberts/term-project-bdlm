@@ -44,16 +44,25 @@ router.post("/create", async (request, response) => {
 router.post("/:id/move", async (request, response) => {
   const { id: table_id } = request.params;
   const { id: user_id } = request.session.user;
-  // const { x, y } = request.body;
 
   const io = request.app.get("io");
 
+  const {type: button} = request.body;
+
   try {
+    switch(button){
+      case 'bet':
+        await Games.updateBet(table_id, user_id);
+      
+    }
+
     // const valid = await Games.isMoveValid(game_id, user_id, x, y);
     //const state = await Games.gameState(table_id, user_id);
     // io.emit(GAME_UPDATED(game_id), state);
 
-    console.log("BUTTON: ", request.body);
+    
+    response.redirect(`/games/${table_id}`);
+
   } catch (error) {
     console.log({ error });
 

@@ -6,6 +6,7 @@ const { join } = require("./games/join.js");
 const { availableGames } = require("./games/available.js");
 const { leave } = require("./games/leave.js");
 const { full } = require("./games/full.js");
+const { use } = require("../routes/static/games");
 
 const getPlayersList = (table_id) =>
   db.any(
@@ -35,7 +36,7 @@ const gameState = async (table_id) => {
     AND p.user_id IN ($2:csv)`,
     [table_id, player_data.map((p) => p.id)]
   );
-  console.log(hands_data);
+  // console.log(hands_data);
 
   // all players bets
   const bet_data = await db.many(
@@ -60,7 +61,7 @@ const gameState = async (table_id) => {
     "SELECT community_cards FROM gametable t WHERE t.id=$1",
     [table_id]
   );
-  console.log(community_cards);
+  // console.log(community_cards);
 
   return {
     table_id,
@@ -99,6 +100,7 @@ const updateHand = async (cards, table_id, user_id) => {
     [cards.map((c) => c.card_id), table_id, user_id]
   );
 };
+
 const updateCommunityCards = (cards, table_id) => {
   db.none(
     `UPDATE gametable
@@ -106,6 +108,28 @@ const updateCommunityCards = (cards, table_id) => {
     WHERE id=$2`,
     [cards.map((c) => c.card_id), table_id]
   )
+}
+
+const updateBet = async (table_id, user_id) => {
+  const total = await db.one( `SELECT total_cash FROM users WHERE id=$1`, [user_id]);
+  if (bet > total){
+    console.log("Insufficient funds");
+    return;
+  }
+
+  await db.none(
+    `UPDATE players
+    SET bet = bet + 10
+    WHERE table_id = $2 AND user_id = $3`,
+    [table_id, user_id]
+  );
+
+  await db.none(
+    `UPDATE users
+    SET total_cash = total_cash - $1
+    WHERE id=$2`,
+    [amount, user_id]
+  );
 }
 
 const getTableOrder = (table_id, user_id) => db.one(
@@ -120,7 +144,7 @@ const getCommCardsLength = async (table_id) => {
   return cards.length;
 };
 
-const start = async (table_id, user_id) => {
+const start = async (table_id) => {
   const fullStatus = await full(table_id);
   if(fullStatus){
     let playerHand = (await gameState(table_id)).hands_data[0].player_cards;
@@ -159,7 +183,8 @@ module.exports = {
   getTableOrder,
   getCommCardsLength,
   start,
-
+  updateBet,
+  
   // Sub module
   create,
   full,
