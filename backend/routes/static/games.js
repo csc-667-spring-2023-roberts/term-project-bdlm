@@ -15,13 +15,10 @@ router.get("/:table_id", async (request, response) => {
     
     if(fullStatus){
       await Games.startGame(table_id);
+      console.log("BETTING BEGINS");
       const length = await Games.getCommCardsLength(table_id);
       console.log(length);
     }
-    
-
-    
-    
 
     // TODO Send game state to user
     response.render("table", {

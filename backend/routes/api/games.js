@@ -54,6 +54,7 @@ router.post("/:id/move", async (request, response) => {
       case 'bet':
         await Games.updateBet(table_id, user_id);
       
+
     }
 
     // const valid = await Games.isMoveValid(game_id, user_id, x, y);
