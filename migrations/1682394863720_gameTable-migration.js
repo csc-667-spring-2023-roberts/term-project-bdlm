@@ -17,7 +17,7 @@ exports.up = (pgm) => {
       notNull: true,
     },
     community_cards: {
-      type: "varchar[]",
+      type: "varchar[]"
     },
   });
 };

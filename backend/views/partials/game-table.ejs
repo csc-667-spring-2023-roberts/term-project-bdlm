@@ -37,22 +37,21 @@
 
     <form class="action-bar" method="post" action="/api/games/<%=table_id%>/move">
       <div class="all-in-btn">
-        <button type="submit" id="all-in-btn"> All In</button>
+        <button type="submit" id="all-in-btn" name="type" value="all"> All In</button>
       </div>
       <div class="check-btn">
-        <button type="submit" id="check-bt"> check</button>
+        <button type="submit" id="check-bt" name="type" value="check"> check</button>
       </div>
       <div class="fold-btn">
-        <button type="submit" id="fold-btn"> Fold</button>
+        <button type="submit" id="fold-btn" name="type" value="fold"> Fold</button>
       </div>
       <div class="call-btn">
-        <button type="submit" id="call-btn"> Call</button>
+        <button type="submit" id="call-btn" name="type" value="call"> Call</button>
       </div>
       <div class="bet-btn">
-        <button type="submit" id="check-btn"> Bet</button>
+        <button type="submit" id="check-btn" name="type" value="bet"> Bet</button>
       </div>
   </form>
-  
 
   <template id="chat-message-template" value="<%= table_id %>"">
     <div>
