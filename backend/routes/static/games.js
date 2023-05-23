@@ -1,5 +1,6 @@
 const express = require("express");
 const Games = require("../../db/games.js");
+const User = require("../../db/users.js");
 const { GAME_UPDATED } = require("../../../shared/constants.js");
 
 const router = express.Router();
@@ -10,10 +11,17 @@ router.get("/:table_id", async (request, response) => {
   const io = request.app.get("io");
   
   try {
-    await Games.start(table_id);
+    const fullStatus = await Games.full(table_id);
+    
+    if(fullStatus){
+      await Games.startGame(table_id);
+      const length = await Games.getCommCardsLength(table_id);
+      console.log(length);
+    }
+    
 
-    const length = await Games.getCommCardsLength(table_id);
-
+    
+    
 
     // TODO Send game state to user
     response.render("table", {

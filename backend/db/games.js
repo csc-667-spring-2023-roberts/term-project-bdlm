@@ -6,7 +6,7 @@ const { join } = require("./games/join.js");
 const { availableGames } = require("./games/available.js");
 const { leave } = require("./games/leave.js");
 const { full } = require("./games/full.js");
-const { use } = require("../routes/static/games");
+
 
 const getPlayersList = (table_id) =>
   db.any(
@@ -144,34 +144,32 @@ const getCommCardsLength = async (table_id) => {
   return cards.length;
 };
 
-const start = async (table_id) => {
-  const fullStatus = await full(table_id);
-  if(fullStatus){
-    let playerHand = (await gameState(table_id)).hands_data[0].player_cards;
+const startGame = async (table_id) => {
+  let playerHand = (await gameState(table_id)).hands_data[0].player_cards;
 
-    if(playerHand == null){
-      const players = await getPlayersList(table_id);
+  if (playerHand == null) {
+    const players = await getPlayersList(table_id);
 
-      for(let player of players){
-        const { id: user } = await User.findByUsername(player.username);
-        let cards = await drawCards(table_id, 2);
-        await updateHand(cards, table_id, user);
-      }
-    }
-    else{
-      console.log("PLAYER HAND FULL NO CHANGES");
-    }
-
-    let communityCards = (await gameState(table_id)).community_cards.community_cards;
-    if(communityCards[0] == null){
-      let cards = await drawCards(table_id, 3);
-      updateCommunityCards(cards, table_id);
-    }
-    else{
-      console.log("COMMUNITY CARDS FULL");
+    for (let player of players) {
+      const { id: user } = await User.findByUsername(player.username);
+      let cards = await drawCards(table_id, 2);
+      await updateHand(cards, table_id, user);
     }
   }
-};
+  else {
+    console.log("PLAYER HAND FULL NO CHANGES");
+  }
+
+  let communityCards = (await gameState(table_id)).community_cards.community_cards;
+  if (communityCards[0] == null) {
+    let cards = await drawCards(table_id, 3);
+    updateCommunityCards(cards, table_id);
+  }
+  else {
+    console.log("COMMUNITY CARDS FULL");
+  }
+
+}
 
 
 module.exports = {
@@ -182,7 +180,7 @@ module.exports = {
   updateCommunityCards,
   getTableOrder,
   getCommCardsLength,
-  start,
+  startGame,
   updateBet,
   
   // Sub module
