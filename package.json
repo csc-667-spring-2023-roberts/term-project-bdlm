@@ -12,8 +12,8 @@
     "build:dev": "webpack --watch",
     "prepare": "husky install",
     "db:create": "node-pg-migrate create -- ",
-    "db:migrate": "node-pg-migrate up",
-    "db:rollback": "node-pg-migrate down",
+    "db:migrate": "node-pg-migrate up --no-check-order",
+    "db:rollback": "node-pg-migrate down --no-check-order",
     "postinstall": "npm run db:migrate"
   },
   "keywords": [],
@@ -48,7 +48,7 @@
     "livereload": "^0.9.3",
     "nodemon": "^2.0.22",
     "ts-loader": "^9.4.2",
-    "webpack": "^5.82.0",
+    "webpack": "^5.83.1",
     "webpack-cli": "^5.1.0"
   },
   "lint-staged": {

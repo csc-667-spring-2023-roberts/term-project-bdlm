@@ -21,7 +21,7 @@ const testRoutes = require("./routes/test/index.js");
 const chatRoutes = require("./routes/static/chat.js");
 const apiGamesRoutes = require("./routes/api/games.js");
 const gameTableRoutes = require("./routes/static/games.js");
-const playerMoveRoutes = require("./routes/api/player-move.js");
+// const playerMoveRoutes = require("./routes/api/player-move.js");
 
 const app = express();
 
@@ -74,7 +74,7 @@ app.use("/games", isAuthenticated, gameTableRoutes);
 app.use("/test", testRoutes);
 app.use("/chat", isAuthenticated, chatRoutes);
 app.use("/api/games", isAuthenticated, apiGamesRoutes);
-app.use("/api/player-move", isAuthenticated, playerMoveRoutes);
+// app.use("/api/player-move", isAuthenticated, playerMoveRoutes);
 
 server.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

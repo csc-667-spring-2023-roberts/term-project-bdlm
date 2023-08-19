@@ -4,7 +4,7 @@ import { getGameId } from "../util/game-id";
 import { GAMES } from "../../constants/events";
 
 const socket = io();
-
+console.log("f/chat",socket);
 const userTemplate = document.querySelector("#user-template");
 const users = document.querySelector("#users");
 
@@ -30,4 +30,34 @@ fetch("/authentication/user", {
         console.log({ game_state });
       }
     );
+  });
+  
+  socket.on(
+    events.CHAT_MESSAGE_RECEIVED,
+    ({ table_id, username, message, timestamp }) => {
+      if (table_id.toString() == chatMessageTemplate.target.value) {
+        entry.querySelector(".username").innerText = username;
+        entry.querySelector(".message").innerText = message;
+        entry.querySelector(".timestamp").innerText = timestamp;
+  
+        messageContainer.appendChild(entry);
+      }
+    }
+  );
+  document
+  .querySelector("input#chatMessage")
+  .addEventListener("keydown", (event) => {
+    if (event.keyCode !== 13) {
+      return;
+    }
+
+    const message = event.target.value;
+    event.target.value = "";
+    const gameId = window.location.pathname.split("/").pop();
+
+    fetch("/chat/{gameId}", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+    });
   });

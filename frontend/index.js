@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import events from "../backend/sockets/constants";
 
 const socket = io({ query: { path: window.location.pathname } });
-
+console.log("f/",socket);
 const messageContainer = document.querySelector("#messages");
 const chatMessageTemplate = document.querySelector("#chat-message-template");
 
@@ -18,7 +18,7 @@ socket.on(
     }
   }
 );
-
+//
 document
   .querySelector("input#chatMessage")
   .addEventListener("keydown", (event) => {
